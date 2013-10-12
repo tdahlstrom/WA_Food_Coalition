@@ -19,6 +19,14 @@ namespace API.Controllers
         // GET api/Donation
         public IQueryable<Donation> GetDonations()
         {
+            Donation d = new Donation();
+            d.Name = "Abe";
+            d.Email = "some@hotmail.com";
+            d.FoodAmount = "5 pounds";
+            d.FoodType = "canned";    
+        
+            db.Donations.Add(d);
+            db.SaveChanges();
             return db.Donations;
         }
 
