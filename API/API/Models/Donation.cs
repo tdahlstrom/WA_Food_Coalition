@@ -46,6 +46,9 @@ namespace API.Models
         [Required]
         [Display(Name = "ExpirationDate")]
         public DateTime ExpirationDate { get; set; }
+
+        [Display(Name = "FoodBankID")]
+        public int FoodBankID { get; set; }
     }
 
  
