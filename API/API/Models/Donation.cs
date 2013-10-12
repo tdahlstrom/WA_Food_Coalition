@@ -10,7 +10,7 @@ namespace API.Models
 {
     public class Donation
     {
-        [Required]
+        
         [Key]
         [Display(Name = "ID")]
         public int ID { get; set; }
