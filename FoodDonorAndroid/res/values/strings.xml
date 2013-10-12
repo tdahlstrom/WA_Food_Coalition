@@ -7,7 +7,8 @@
     <string name="title_activity_donate">Donate</string>
     <string name="name">Your name</string>
     <string name="description">What food and how much?</string>
+    <string name="availability_label">Available until</string>
     <string name="email">Your email</string>
     <string name="phone">Your contact number</string>
-	<string name="location">Your address</string>    
+	<string name="location">Your address</string>
 </resources>
