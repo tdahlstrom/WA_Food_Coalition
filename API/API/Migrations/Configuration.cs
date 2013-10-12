@@ -5,14 +5,14 @@ namespace API.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<API.Models.DonationContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<API.Models.FoodCoalitionAppContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(API.Models.DonationContext context)
+        protected override void Seed(API.Models.FoodCoalitionAppContext context)
         {
             //  This method will be called after migrating to the latest version.
 
