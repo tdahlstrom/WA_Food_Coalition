@@ -6,7 +6,7 @@ using System.Web;
 
 namespace API.Models
 {
-    public class DonationContext : DbContext
+    public class FoodCoalitionAppContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -17,11 +17,12 @@ namespace API.Models
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<API.Models.DonationContext>());
 
-        public DonationContext() : base("name=DonationContext")
+        public FoodCoalitionAppContext() : base("name=DonationContext")
         {
         }
 
         public System.Data.Entity.DbSet<API.Models.Donation> Donations { get; set; }
+        public System.Data.Entity.DbSet<API.Models.FoodBank> FoodBanks { get; set; }
 
     }
 }
