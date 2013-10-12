@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,6 +19,7 @@ namespace API.Services {
         private string _optionalContactBody = WebConfigurationManager.AppSettings["SMTPOptionalPhone"];
         private string _optionalDescriptionBody = WebConfigurationManager.AppSettings["SMTOOptionalDescription"];
         private string _emailSubject = WebConfigurationManager.AppSettings["SMTOSubjectLine"];
+        private string _senderPassword = WebConfigurationManager.AppSettings["SMTPPassword"];
 
         public void SendNearbyDonationEmail(Donation donation, List<FoodBank> foodBanksToGetEmail) {
             if (foodBanksToGetEmail.Count == 0)
@@ -55,6 +57,12 @@ namespace API.Services {
             message.Subject = _emailSubject;
 
             SmtpClient client = new SmtpClient();
+            NetworkCredential credential = new NetworkCredential();
+            credential.UserName = _senderEmail;
+            credential.Password = _senderPassword;
+            client.Credentials = credential;
+            client.EnableSsl = true;
+            client.Port = 587;
             client.SendAsync(message, donation.ID);
         }
     }
