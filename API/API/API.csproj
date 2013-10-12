@@ -90,6 +90,7 @@
     <Compile Include="Models\DonationContext.cs" />
     <Compile Include="Models\FoodBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+	<Compile Include="Services\EmailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
