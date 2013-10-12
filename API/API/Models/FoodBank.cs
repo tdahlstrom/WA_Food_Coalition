@@ -15,6 +15,9 @@ namespace API.Models {
 
         public string Email { get; set; }
 
+        [Required]
+        public long rangeInMeters { get; set; }
+
         // More fields to be defined later
     }
 }
