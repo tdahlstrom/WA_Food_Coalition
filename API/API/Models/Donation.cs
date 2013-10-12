@@ -36,13 +36,5 @@ namespace API.Models
         //public DbGeography Location { get; set; }
     }
 
-    public class DonationDBContext : DbContext
-    {
-        public DonationDBContext()
-            : base("DefaultConnection")
-        {
-
-        }
-        public DbSet<Donation> Donations { get; set; }
-    }
+ 
 }

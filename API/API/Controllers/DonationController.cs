@@ -14,7 +14,7 @@ namespace API.Controllers
 {
     public class DonationController : ApiController
     {
-        private DonationDBContext db = new DonationDBContext();
+        private DonationContext db = new DonationContext();
 
         // GET api/Donation
         public IQueryable<Donation> GetDonations()
