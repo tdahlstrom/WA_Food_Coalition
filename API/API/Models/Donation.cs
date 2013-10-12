@@ -15,19 +15,15 @@ namespace API.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
-        [Required]
         [Display(Name = "Name")]
         public String Name { get; set; }
 
-        [Required]
         [Display(Name = "Email")]
         public String Email { get; set; }
 
-        [Required]
         [Display(Name = "Phone")]
         public String Phone { get; set; }
 
-        [Required]
         [Display(Name = "Address")]
         public String Address { get; set; }
 
@@ -40,7 +36,6 @@ namespace API.Models
         public Double Longitude { get; set; }
 
         /* Brandon - Description field for type of food, amount of food, etc. */
-        [Required]
         [Display(Name = "Description")]
         public String Description { get; set; }
 
