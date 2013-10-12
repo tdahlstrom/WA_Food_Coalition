@@ -20,19 +20,19 @@ namespace API.Controllers
         public IQueryable<Donation> GetDonations()
         {
             Donation d = new Donation();
-            d.Name = "Abe";
-            d.Email = "some@hotmail.com";
-            d.Description = "5 pounds of potatoes";
-            d.ExpirationDate = DateTime.Now;
-            d.Latitude = 16.0;
-            d.Longitude = 65.0;
-            d.Phone = "5555555555";
-            d.Status = "New";
-            d.Address = "some random place";
+            //d.Name = "Abe";
+            //d.Email = "some@hotmail.com";
+            //d.Description = "5 pounds of potatoes";
+            //d.ExpirationDate = DateTime.Now;
+            //d.Latitude = 16.0;
+            //d.Longitude = 65.0;
+            //d.Phone = "5555555555";
+            //d.Status = "New";
+            //d.Address = "some random place";
 
         
-            db.Donations.Add(d);
-            db.SaveChanges();
+            //db.Donations.Add(d);
+            //db.SaveChanges();
             return db.Donations;
         }
 

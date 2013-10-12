@@ -22,7 +22,7 @@ namespace API.Models
         }
 
         public System.Data.Entity.DbSet<API.Models.Donation> Donations { get; set; }
-        public System.Data.Entity.DbSet<API.Models.FoodBank> FoodBanks { get; }
+        public System.Data.Entity.DbSet<API.Models.FoodBank> FoodBanks { get; set; }
 
     }
 }

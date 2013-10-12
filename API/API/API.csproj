@@ -88,6 +88,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\DonationContext.cs" />
+    <Compile Include="Models\FoodBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
