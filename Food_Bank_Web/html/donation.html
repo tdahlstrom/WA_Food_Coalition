@@ -10,7 +10,6 @@
 
     <!-- Le styles -->
     <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/donations.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -107,7 +106,7 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="#">Donations</a></li>
+                <li class="active"><a href="donations.html">Donations</a></li>
                 <li><a href="settings.html">Settings</a></li>
                 <li><a href="shortages.html">Shortages</a></li>
               </ul>
@@ -116,37 +115,35 @@
         </div><!-- /.navbar -->
       </div>
 
-      <div class="btn-group">
-        <button class="btn btn-third btn-primary disabled">Not Picked Up</button>
-        <button class="btn btn-third">Picked Up</button>
-        <button class="btn btn-third">I'm Picking Up</button>
+      <div class="text-center">
+        <h2>Amount/Type of Food</h2>
+
+        <h3>Contact Information</h3>
+
+        <div class="button-area">
+          <div id="open">
+            <div class="btn">Pick Up</div>
+          </div>
+          <div id="being-picked-up">
+            <h3>Being Picked Up</h3>
+            <!-- only show this if they are the one picking it up -->
+            <div class="btn-group">
+              <button class="btn">Picked Up</button>
+              <button class="btn">Cancel</button>
+            </div>
+          </div>
+          <div id="picked-up">
+            <h3>Picked Up</h3>
+            <!-- only show this if they are the one picking it up -->
+            <div class="btn">Undo</div>
+          </div>
+        </div>
       </div>
-
-      <!-- Populate the divs here -->
-
 
       <div class="footer">
         <p>&copy; Company 2013</p>
       </div>
 
     </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap-transition.js"></script>
-    <script src="../js/bootstrap-alert.js"></script>
-    <script src="../js/bootstrap-modal.js"></script>
-    <script src="../js/bootstrap-dropdown.js"></script>
-    <script src="../js/bootstrap-scrollspy.js"></script>
-    <script src="../js/bootstrap-tab.js"></script>
-    <script src="../js/bootstrap-tooltip.js"></script>
-    <script src="../js/bootstrap-popover.js"></script>
-    <script src="../js/bootstrap-button.js"></script>
-    <script src="../js/bootstrap-collapse.js"></script>
-    <script src="../js/bootstrap-carousel.js"></script>
-    <script src="../js/bootstrap-typeahead.js"></script>
-
   </body>
 </html>

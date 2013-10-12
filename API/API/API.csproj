@@ -85,12 +85,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\DonationContext.cs" />
+    <Compile Include="Models\FoodBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+	<Compile Include="Services\EmailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\sgc-wfc.org - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sgc-wfc.org - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
