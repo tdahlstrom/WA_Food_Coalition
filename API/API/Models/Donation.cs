@@ -17,23 +17,40 @@ namespace API.Models
 
         [Required]
         [Display(Name = "Name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [Required]
         [Display(Name = "Email")]
-        public string Email { get; set; }
+        public String Email { get; set; }
 
         [Required]
-        [Display(Name = "Amount of Food")]
-        public string FoodAmount { get; set; }
+        [Display(Name = "Phone")]
+        public String Phone { get; set; }
 
         [Required]
-        [Display(Name = "Type of Food")]
-        public string FoodType { get; set; }
+        [Display(Name = "Address")]
+        public String Address { get; set; }
 
-        //[Required]
-        //[Display(Name = "Location")]
-        //public DbGeography Location { get; set; }
+        [Required]
+        [Display(Name = "Latitude")]
+        public Double Latitude { get; set; }
+
+        [Required]
+        [Display(Name = "Longitude")]
+        public Double Longitude { get; set; }
+
+        /* Brandon - Description field for type of food, amount of food, etc. */
+        [Required]
+        [Display(Name = "Description")]
+        public String Description { get; set; }
+
+        [Required]
+        [Display(Name = "Status")]
+        public String Status { get; set; }
+
+        [Required]
+        [Display(Name = "ExpirationDate")]
+        public DateTime ExpirationDate { get; set; }
     }
 
  
