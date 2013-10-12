@@ -6,7 +6,7 @@ using System.Web;
 
 namespace API.Models {
     public class FoodBank {
-        [Required]
+        
         [Key]
         [Display(Name = "ID")]
         public int ID { get; set; }
