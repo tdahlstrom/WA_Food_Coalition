@@ -1,4 +1,6 @@
-﻿.container
+
+/* Custom container */
+.container
 {
     margin: 0 auto;
     max-width: 1000px;
@@ -74,74 +76,4 @@
 {
     border-right: 0;
     border-radius: 0 3px 3px 0;
-}
-
-.btn-group {
-	width: 100%;
-}
-
-input[type="submit"].btn-third {
-	width: 33%;
-}
-
-.donationList
-{
-    width: 100%;
-    margin-top: 10px;
-    border: 1px solid #333333;
-}
-
-.donationRow
-{
-    border: 0;
-    border-bottom: 1px solid #333333;
-}
-.donationRow img
-{
-    border: 0;
-}
-
-.donationRow tr
-{
-    border: 0;
-}
-.donationRow td
-{
-    border: 0;
-    padding: 5px;
-}
-
-.donationRowAlt
-{
-    border: 0;
-    border-bottom: 1px solid #333333;
-    background-color: #e5e5e5;
-}
-
-
-.donationRowAlt tr
-{
-    border: 0;
-}
-.donationRowAlt td
-{
-    border: 0;
-    padding: 5px;
-}
-
-
-.donationList .description
-{
-    width: 70%;
-    float: left;
-}
-.donationList .status
-{
-    width: 10%;
-    float: left;
-}
-.donationList .distance
-{
-    width: 20%;
-    float: left;
 }

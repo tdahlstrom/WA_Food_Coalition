@@ -20,9 +20,28 @@ public partial class foodbank_master : System.Web.UI.MasterPage
         }
 
         lblPageTitle.Text = string.Concat("Page Title: ", pageName);
-        if (pageName.Equals("signin.aspx", StringComparison.OrdinalIgnoreCase))
+
+        mainNavigations.UpdateMenu(pageName);
+
+        switch (pageName.ToLower())
         {
-            placeholderHeader.Visible = false;
-        }        
+            case "signin.aspx":
+                placeholderHeader.Visible = false;
+                break;
+            case "settings.aspx":
+                lblPageTitle.Text = "Settings";
+                break;
+            case "donations.aspx":
+                lblPageTitle.Text = "Donations";
+                break;
+            case "donationDetail.aspx":
+                lblPageTitle.Text = "Donation Detail";
+                break;                
+            case "shortages.aspx":
+                lblPageTitle.Text = "Shorages";
+                break;
+            default:
+                break;
+        }
     }
 }
