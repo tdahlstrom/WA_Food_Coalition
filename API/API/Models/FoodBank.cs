@@ -32,6 +32,6 @@ namespace API.Models {
     {
         [Required]
         [Display(Name = "Distance")]
-        public float Distance { get; set; }
+        public Double Distance { get; set; }
     }
 }
