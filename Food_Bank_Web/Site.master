@@ -1,51 +1,36 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Food_Bank_Web.SiteMaster" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head runat="server">
+<%@ Register TagPrefix="uc" TagName="Menu" Src="menu.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
     <title></title>
-    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
-    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    <link href="<%= Page.ResolveClientUrl("~/Styles/bootstrap.css") %>" rel="stylesheet" />
+    <link href="<%= Page.ResolveClientUrl("~/Styles/bootstrap-responsive.css") %>" rel="stylesheet" />
+    <link href="<%= Page.ResolveClientUrl("~/Styles/main.css") %>" rel="stylesheet" />
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.js") %>"></script>
+
+    <asp:ContentPlaceHolder ID="pageHead" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form runat="server">
-    <div class="page">
-        <div class="header">
-            <div class="title">
-                <h1>
-                    My ASP.NET Application
-                </h1>
-            </div>
-            <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Welcome <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
-            </div>
-            <div class="clear hideSkiplink">
-                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
-                    <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
-                    </Items>
-                </asp:Menu>
-            </div>
-        </div>
-        <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
-        </div>
-        <div class="clear">
-        </div>
+    <form id="pageForm" runat="server">
+    <div class="masthead">
+        <asp:PlaceHolder ID="placeholderHeader" runat="server">
+            <h3 class="muted">
+                <asp:Label ID="lblPageTitle" runat="server"></asp:Label></h3>
+            <uc:Menu ID="mainNavigations" runat="server" />
+        </asp:PlaceHolder>
+        &nbsp;
+    </div>
+    <div class="container">
+        <asp:ContentPlaceHolder ID="pageContent" runat="server">
+        </asp:ContentPlaceHolder>
     </div>
     <div class="footer">
-        
+        <asp:Label ID="lblPageFooter" runat="server"></asp:Label>
     </div>
-    </form>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/bootstrap.js") %>"></script>
+   </form>
 </body>
 </html>

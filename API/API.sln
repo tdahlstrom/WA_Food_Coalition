@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{29223BF0-6DDB-4B43-8404-89F5368BD1C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food_Bank_Web", "..\Food_Bank_Web\Food_Bank_Web.csproj", "{A1379F28-433D-425F-871C-E0DABBC74F6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,10 @@ Global
 		{29223BF0-6DDB-4B43-8404-89F5368BD1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29223BF0-6DDB-4B43-8404-89F5368BD1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29223BF0-6DDB-4B43-8404-89F5368BD1C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
