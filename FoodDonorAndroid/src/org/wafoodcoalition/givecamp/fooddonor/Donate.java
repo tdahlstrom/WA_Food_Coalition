@@ -1,21 +1,27 @@
 package org.wafoodcoalition.givecamp.fooddonor;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.wafoodcoalition.givecamp.fooddonor.location.FoodLocation;
 import org.wafoodcoalition.givecamp.fooddonor.location.LocationDetection;
 import org.wafoodcoalition.givecamp.fooddonor.location.LocationUpdated;
-import org.wafoodcoalition.givecamp.fooddonor.service.DonateTask;
+import org.wafoodcoalition.givecamp.fooddonor.service.HttpUtil;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
@@ -33,8 +39,10 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	private EditText descriptionEdit;
 	
 	EditText locationEdit = null;
+	FoodLocation detectedLocation;
 	FoodLocation location;
 	Button submitButton;
+		
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +56,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		locationEdit = (EditText) findViewById(R.id.location);
 		nameEdit = (EditText) findViewById(R.id.name);
 		descriptionEdit = (EditText) findViewById(R.id.description);
-		
-	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
-	    LocationDetection.init(this.getApplicationContext());
-	    LocationDetection.instance().detectLocation(lm, this);
-	    
+			    
 	    submitButton = (Button) findViewById(R.id.submit);
 	    submitButton.setOnClickListener(this);
 	}
@@ -60,6 +64,9 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	@Override
 	protected void onResume() {
 		super.onResume();
+	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+	    LocationDetection.init(this.getApplicationContext());
+	    LocationDetection.instance().detectLocation(lm, this);
 	}
 	
 	@Override
@@ -110,13 +117,22 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		}
 	}
 	
+	/** location **/
 	public void updated(FoodLocation l) {
-		if(l!=null) {
-			this.location = l;
-			locationEdit.setText(l.getAddress());
-			locationEdit.postInvalidate();
+		if(l!=null && detectedLocation==null) {
+			this.detectedLocation = l;
+			String typedlocation = locationEdit.getText().toString();
+			if(typedlocation==null || typedlocation.length()<5) {
+				locationEdit.setText(l.getAddress());
+				locationEdit.postInvalidate();
+			}
 		}
 	}
+	public void failed() {
+		
+	}
+	/** location **/
+
 	public void onClick(View arg0) {
 		if(arg0==submitButton) {
 			submit();
@@ -124,21 +140,91 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	}
 
 	private void submit() {
+		if(detectedLocation==null) {
+			showLocationMissingAlert();
+			return;
+		}
 		updateAddress();
 		postToService();
 	}
 	
 	private void updateAddress() {
-		String newAddress = locationEdit.getText().toString();
-		if(location==null || !location.getAddress().equals(newAddress)) {
-			location = LocationDetection.instance().geoCode(newAddress);
-		} 
-		//TODO: handle the case if no location.
+		try {
+			String newAddress = locationEdit.getText().toString();
+			if(!detectedLocation.getAddress().equals(newAddress)) {
+				location = LocationDetection.instance().geoCode(newAddress);
+			} else {
+				location = detectedLocation;
+			}
+		} catch(Exception e) {
+			showLocationFailure(e);
+		}
+	}
+	private void showLocationFailure(Exception e) {
+		new AlertDialog.Builder(this)
+	    .setTitle("Address not found on Map.")
+	    .setMessage(e.getMessage())
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();	
+	}
+	private void showNetworkAlert() {
+		new AlertDialog.Builder(this)
+	    .setTitle("Network Connection Failure")
+	    .setMessage("Please turn on data network or wi-fi.")
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();	
+	}
+	private void showLocationMissingAlert() {
+		new AlertDialog.Builder(this)
+	    .setTitle("Location not available")
+	    .setMessage("We could not detect your location. You cannot post a donation.")
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();	
+	}
+	
+	private void showPostedAlert() {
+		new AlertDialog.Builder(this)
+	    .setTitle("Your request was posted.")
+	    .setMessage("If available, your nearest WA food bank will contact you.")
+	    .setPositiveButton("Finish", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	Donate.this.finish();
+	        }
+	     })
+	     .show();	
+	}
+	
+	private void showPostFailedAlert(Integer code) {
+		new AlertDialog.Builder(this)
+	    .setTitle("Your request failed.")
+	    .setMessage("Your donation post failed with error code:"+code+". Make sure your data network is available, and try again.")
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();	
 	}
 	
 	private void postToService() {
 		//{"Name":"NameTestX","Email":"some@hotmail.com","Phone":"5555555555","Address":"some random place","Latitude":16.0,"Longitude":65.0,"Description":"5 pounds of potatoes","Status":"New","ExpirationDate":"2013-10-12T12:55:45","FoodBankID":0}]
 		try {
+			if(location==null) {
+				showLocationMissingAlert();
+				return;
+			}
 			JSONObject obj = new JSONObject();
 			obj.put("Name", nameEdit.getText().toString());
 			obj.put("Email", email.getText().toString());
@@ -152,8 +238,44 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			obj.toString();
 			
 			new DonateTask(obj, "http://sgcwfcorg00.web803.discountasp.net/api/Donation").execute();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (JSONException e) {
+			Log.e("JSON", e.getMessage());
+		}
+	}
+	
+	class DonateTask extends AsyncTask<Void, Void, Integer> {
+		private String url;
+		private JSONObject obj;
+		public DonateTask(JSONObject obj, String url) {
+			this.url = url;
+			this.obj = obj;
+		}
+		@Override
+		protected Integer doInBackground(Void... unsued) {
+			try {				
+				return HttpUtil.post(obj, url);
+			} catch (IOException e) {
+				Log.e(e.getClass().getName(), e.getMessage(), e);
+				showNetworkAlert();
+				return 0;
+			}
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... unsued) {
+
+		}
+
+		@Override
+		protected void onPostExecute(Integer sResponse) {
+			Log.v("POST", String.valueOf(sResponse));
+			if(sResponse>0) {
+				if(sResponse==201) {
+					showPostedAlert();
+				} else {
+					showPostFailedAlert(sResponse);
+				}
+			}
 		}
 	}
 

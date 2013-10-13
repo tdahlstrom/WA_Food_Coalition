@@ -13,11 +13,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-public class LocationDetection {
+public class LocationDetection implements LocationListener{
 	private static LocationDetection detector = null;
-	
-	
-	private LocationListener locationListener = new LocationDetectionListener();
+		
+	private LocationManager locationManager;
 	private LocationUpdated updateListener;
 	private Geocoder geocoder; 
 	
@@ -38,19 +37,20 @@ public class LocationDetection {
 	
 	public void detectLocation(LocationManager lm, LocationUpdated listener) {
 		if(lm!=null) {
-			getLatLng(lm);
+			//getLatLng(lm);
+			this.locationManager = lm;
+			if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				lm.requestLocationUpdates(
+						LocationManager.GPS_PROVIDER, 1000, 1, this);
+			} 
 			lm.requestLocationUpdates(
-					LocationManager.NETWORK_PROVIDER, 10000, 1, detector.locationListener);
-			lm.requestLocationUpdates(
-					LocationManager.GPS_PROVIDER, 10000, 1, detector.locationListener);
-			detector.updateListener = listener;
+					LocationManager.NETWORK_PROVIDER, 1000, 1, this);
+				this.updateListener = listener;
 		}
 	}
 	
-	public class LocationDetectionListener implements LocationListener {
-
 		public void onLocationChanged(Location l) {
-			detector.updateLocation(l);
+			this.updateLocation(l);
 		}
 
 		public void onProviderDisabled(String provider) {
@@ -64,9 +64,8 @@ public class LocationDetection {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			
 		}
-	}
 
-	private static void getLatLng(LocationManager locationManager) {
+/*	private static void getLatLng(LocationManager locationManager) {
 		List<String> providers = locationManager.getProviders(true);
 
 		Location l = null;
@@ -77,10 +76,10 @@ public class LocationDetection {
 				break;
 		}
 		detector.updateLocation(l);		
-	}
+	}*/
 	
 	private synchronized void updateLocation(Location l) {
-		if (l != null) {			
+		if (l != null && l.getAccuracy()<1500) {	//1500 meters accuracy	~ 1 miles
 			try {
 				List<Address> address = geocoder.getFromLocation(l.getLatitude(), l.getLongitude(), 1);
 				if(address!=null && address.size()>0) {
@@ -97,18 +96,23 @@ public class LocationDetection {
 					FoodLocation location = new FoodLocation(sb.toString(), l.getLatitude(), l.getLongitude());
 					if(updateListener!=null) {
 						updateListener.updated(location);
+						locationManager.removeUpdates(this);
 					}
 				}
 			} catch (IOException ioe) {
-				Log.e("location", "reverse geocode failed");
+				Log.e("location", "reverse geocode failed");		
+				if(updateListener!=null) {
+					updateListener.failed();
+				}
 			}
 		}
 	}
 	
-	public FoodLocation geoCode(String address) {
+	public FoodLocation geoCode(String address) throws IOException {
 		if (address != null && address.trim().length()>5) {			
 			try {
 				List<Address> locations = geocoder.getFromLocationName(address, 1);
+				
 			    Address location = locations.get(0);
 			    location.getLatitude();
 			    location.getLongitude();
@@ -116,7 +120,8 @@ public class LocationDetection {
 				FoodLocation foodLocation = new FoodLocation(address, location.getLatitude(), location.getLongitude());
 				return foodLocation;
 			} catch (IOException ioe) {
-				Log.e("location", "geocode failed"); //TODO: handle case if failed. can't post then.				
+				Log.e("location", "geocode failed"); 
+				throw ioe;
 			}
 		}
 		return null;
