@@ -94,3 +94,8 @@
 {
     margin-bottom: 10px;
 }
+
+.status {
+    color: #c0c0c0;
+    font-weight: bold;
+}

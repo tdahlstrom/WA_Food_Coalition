@@ -11,15 +11,59 @@
             return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
         function getDonationDetail() {
-            var apiURL = "/api/donation/" + getParameterByName("donationId");
-            alert(apiURL);
-            $.getJSON(apiURL,
-                function (data) {
-                    alert(data);
-                    $('#Test').text(JSON.stringify(data));
-                });
+            var id = getParameterByName("donationId");
+            hideAllActions();
+            if (id != null) {
+                $.getJSON("/api/donation?ID=" + id,
+                    function(data) {
+                        $('#FoodDescription').text(data.Description);
+                        $('#Address').text(data.Address);
+                        $('#Name').text(data.Name);
+                        $('#Phone').text(data.Phone);
+                        $('#Email').text(data.Email);
+                        $('#donationStatus').text(data.Status);
+                        toggleAction(data.Status);
+                    });
+            }
         }
 
+        function updateDonationStatus(status) {
+            var id = getParameterByName("donationId");
+            var foodbankId = 1;
+            var APIurl = "/api/Donation/Status/" + id + "?status=" + status + "&foodbankid=" + foodbankId;
+            
+            $.ajax({
+                type: "PUT",
+                url: APIurl,
+                async: false,
+                success: function () {                }
+            });
+            return false;
+        }
+
+        function hideAllActions() {
+            $('#OpenActions').hide();
+            $('#InProcessActions').hide();
+            $('#CloseActions').hide();
+        }
+
+        function toggleAction(status) {
+            switch (status.toLowerCase()) {
+                case "open":
+                case "new":
+                    $('#OpenActions').show();
+                    break;
+                case "inprocess":
+                    $('#InProcessActions').show();
+                    break;
+                case "close":
+                    $("#CloseActions").show();
+                    break;
+                default:
+                    break;
+            }
+
+        }
         $(document).ready(getDonationDetail);
     </script>
 </asp:Content>
@@ -27,34 +71,31 @@
     <div id="Test"></div>
     <div class="text-center">
         <div class="food">
-            <asp:Label ID="lblFoodType" runat="server"></asp:Label>
-            <asp:Label ID="lblFoodAmount" runat="server"></asp:Label>
+             <span id="FoodDescription"></span>
         </div>
+        <div class="status"><span id="donationStatus"></span></div>
         <div class="location">
-            <asp:Label ID="lblAddress" runat="server"></asp:Label>
-            <br />
-            <asp:Label ID="lblDistance" runat="server"></asp:Label>
+            <span id="Address"></span>
         </div>
         <div class="contact">
-            <asp:Label ID="lblContactName" runat="server"></asp:Label>
-            :
-            <asp:Label ID="lblContact" runat="server"></asp:Label>
+            Contact Name: <span id="Name"></span>
+            <br />
+             Phone: <span id="Phone"></span>
+            <br />
+             Email: <span id="Email"></span>
         </div>
         <div class="button-area">
-            <asp:PlaceHolder runat="server" ID="phOpen" Visible="false">
-                <asp:Button ID="btnPickup" runat="server" Text="Pick Up" CssClass="btn" OnClick="btnPickup_Click" />
-            </asp:PlaceHolder>
-            <asp:PlaceHolder runat="server" ID="phInProcess" Visible="false">
-                <!-- only show this if they are the one picking it up -->
-                <div class="btn-group">
-                    <asp:Button ID="btnDone" runat="server" Text="Picked Up" CssClass="btn" OnClick="btnDone_Click" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn" OnClick="btnCancel_Click" />
-                </div>
-            </asp:PlaceHolder>
-            <asp:PlaceHolder runat="server" ID="phClose" Visible="false">
-                <!-- only show this if they are the one picking it up -->
-                <asp:Button ID="btnUndo" runat="server" Text="Undo Picked Up" CssClass="btn" OnClick="btnUndo_Click" />
-            </asp:PlaceHolder>
+            <div id="OpenActions">
+                <input type="button" id="btnPickup" value="Pick Up" class="btn" onclick="updateDonationStatus('inprocess')"/>
+            </div>
+            <div id="InProcessActions">
+                <input type="button" id="btnDone" value="Picked Up" class="btn" onclick="updateDonationStatus('close')"/>
+                <input type="button" id="btnCancel" value="Cancel Pick Up" class="btn" onclick="updateDonationStatus('open')"/>
+            </div>
+            <div id="CloseActions">
+                <input type="button" id="btnUndo" value="Undo Picked Up" class="btn" onclick="updateDonationStatus('open')"/>
+            </div>
+
         </div>
     </div>
 </asp:Content>

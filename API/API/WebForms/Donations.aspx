@@ -4,8 +4,27 @@
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/donations.css") %>" rel="stylesheet" />
 
     <script type="text/javascript">
-        function getDonations() {
-            $.getJSON("/api/donation",
+        function getDonations(status) {
+            alert(status.toLowerCase());
+            var APIUrl = "/api/donation";
+            var foodbankId = 1;
+            $('#btnAll').removeClass("btn-primary").removeClass("disabled");
+            $('#btnInProcess').removeClass("btn-primary").removeClass("disabled");
+            $('#btnClose').removeClass("btn-primary").removeClass("disabled");
+            switch(status.toLowerCase()) {
+                case "inprocess":
+                    APIUrl = APIUrl + "?foodbankid=" + foodbankId + "&status=" + status;
+                    $('#btnInProcess').addClass("btn-primary").addClass("disabled");
+                    break;
+                case "close":
+                    APIUrl = APIUrl + "?foodbankid=" + foodbankId + "&status=" + status;
+                    $('#btnClose').addClass("btn-primary").addClass("disabled");
+                    break;
+                default:
+                    $('#btnAll').addClass("btn-primary").addClass("disabled");
+                    break;
+            }
+            $.getJSON(APIUrl,
             function (data) {
                 $('#donations').empty(); // Clear the table body.
                 // Loop through the list of products.
@@ -37,18 +56,10 @@
 </asp:Content>
 <asp:Content ID="donationContent" ContentPlaceHolderID="pageContent" runat="Server">
     <div class="btn-group">
-        <asp:Button ID="btnPending" runat="server" CssClass="btn btn-third btn-primary disabled"
-            Text="Not Picked Up" />
-        <asp:Button ID="btnInProcess" runat="server" CssClass="btn btn-third" Text="I'm Picking Up" />
-        <asp:Button ID="btnPickedUp" runat="server" CssClass="btn btn-third" Text="Picked Up" />
+        <input type="button" id="btnAll" CssClass="btn btn-third btn-primary disabled" value="All Donations" onclick="getDonations('All')"/>
+        <input type="button" id="btnInProcess" CssClass="btn btn-third " value="I'm Picking Up" onclick="getDonations('InProcess')"/>
+        <input type="button" id="btnClose" CssClass="btn btn-third " value="Picked Up" onclick="getDonations('Close')"/>
     </div>
-    <asp:ListView ID="lstDonations" runat="server">
-        <ItemTemplate>
-            <asp:Label ID="lblFood" runat="server"></asp:Label>
-            <asp:Label ID="lblAddress" runat="server"></asp:Label>
-        </ItemTemplate>
-    </asp:ListView>
-
     <table id="donations" class="donationList"></table>
     
 

@@ -14,35 +14,35 @@ namespace Food_Bank_Web
         {
         }
 
-        protected void btnPickup_Click(object sender, EventArgs e)
-        {
-            HideAll();
-            phInProcess.Visible = true;
-        }
+        //protected void btnPickup_Click(object sender, EventArgs e)
+        //{
+        //    HideAll();
+        //    phInProcess.Visible = true;
+        //}
 
-        protected void btnDone_Click(object sender, EventArgs e)
-        {
-            HideAll();
-            phClose.Visible = true;
-        }
+        //protected void btnDone_Click(object sender, EventArgs e)
+        //{
+        //    HideAll();
+        //    phClose.Visible = true;
+        //}
 
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            HideAll();
-            phOpen.Visible = true;
-        }
+        //protected void btnCancel_Click(object sender, EventArgs e)
+        //{
+        //    HideAll();
+        //    phOpen.Visible = true;
+        //}
 
-        protected void btnUndo_Click(object sender, EventArgs e)
-        {
-            HideAll();
-            phOpen.Visible = true;
-        }
+        //protected void btnUndo_Click(object sender, EventArgs e)
+        //{
+        //    HideAll();
+        //    phOpen.Visible = true;
+        //}
 
-        private void HideAll()
-        {
-            phOpen.Visible = false;
-            phInProcess.Visible = false;
-            phClose.Visible = false;
-        }
+        //private void HideAll()
+        //{
+        //    phOpen.Visible = false;
+        //    phInProcess.Visible = false;
+        //    phClose.Visible = false;
+        //}
     }
 }
