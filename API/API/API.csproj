@@ -78,6 +78,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Maps.aspx" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -110,6 +113,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\sgc-wfc.org - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sgc-wfc.org - Web Deploy.pubxml" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
