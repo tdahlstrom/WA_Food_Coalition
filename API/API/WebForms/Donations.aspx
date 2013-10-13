@@ -1,16 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Donations.aspx.cs" Inherits="Food_Bank_Web.Donations" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Donations.aspx.cs" Inherits="Food_Bank_Web.Donations" MasterPageFile="Site.Master" %>
 
 <asp:Content ID="donationHeader" ContentPlaceHolderID="pageHead" runat="Server">
-    <link href="<%= Page.ResolveClientUrl("~/Styles/donations.css") %>" rel="stylesheet" />
+    <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/donations.css") %>" rel="stylesheet" />
 
     <script type="text/javascript">
         function getDonations() {
-            alert("1");
 
             $.getJSON("/api/donation",
             function (data) {
-
-                alert("2");
                 $('#donations').empty(); // Clear the table body.
 
                 // Loop through the list of products.

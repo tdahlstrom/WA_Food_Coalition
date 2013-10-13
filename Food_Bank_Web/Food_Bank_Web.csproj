@@ -128,7 +128,6 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Content Include="App_Code\Donation.cs" />
     <Compile Include="DonationDetail.aspx.cs">
       <DependentUpon>DonationDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -184,6 +183,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
