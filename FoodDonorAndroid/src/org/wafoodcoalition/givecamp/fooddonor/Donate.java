@@ -1,6 +1,7 @@
 package org.wafoodcoalition.givecamp.fooddonor;
 
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 import org.wafoodcoalition.givecamp.fooddonor.location.FoodLocation;
@@ -8,11 +9,14 @@ import org.wafoodcoalition.givecamp.fooddonor.location.LocationDetection;
 import org.wafoodcoalition.givecamp.fooddonor.location.LocationUpdated;
 import org.wafoodcoalition.givecamp.fooddonor.service.DonationServiceWrapper;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +28,8 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	
 	private EditText phone;
 	private DatePicker dpResult;
-
+	private EditText email;
+	
 	EditText locationEdit = null;
 	FoodLocation location;
 	Button submitButton;
@@ -35,6 +40,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		setContentView(R.layout.activity_donate);
 		setDefaultPhoneOnView();
 		setCurrentDateOnView();
+		setDefaultEmailOnView();
 		
 		locationEdit = (EditText) findViewById(R.id.location);
 	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
@@ -80,6 +86,22 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			phone.setText(phoneNumber);
 		}
 	}
+	
+	public void setDefaultEmailOnView() {
+		
+		email = (EditText) findViewById(R.id.email);
+		
+		Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+		Account[] accounts = AccountManager.get(this.getApplicationContext()).getAccounts();
+		
+		for (Account account : accounts) {
+			if (emailPattern.matcher(account.name).matches()) {
+				email.setText(account.name);
+				return;
+			}
+		}
+	}
+	
 	public void updated(FoodLocation l) {
 		this.location = l;
 		locationEdit.setText(l.getAddress());
