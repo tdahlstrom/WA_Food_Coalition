@@ -14,11 +14,6 @@ namespace Food_Bank_Web
 
         void Application_Start(object sender, EventArgs e)
         {
-            RouteTable.Routes.MapHttpRoute(
-                    name: "FoodBankAPI",
-                    routeTemplate: "api/{controller}/{id}",
-                    defaults: new { id = System.Web.Http.RouteParameter.Optional }
-                    );
 
         }
 

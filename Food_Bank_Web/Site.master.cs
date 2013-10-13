@@ -25,7 +25,7 @@ namespace Food_Bank_Web
 
             switch (pageName.ToLower())
             {
-                case "signin.aspx":
+                case "login.aspx":
                     placeholderHeader.Visible = false;
                     break;
                 case "settings.aspx":
