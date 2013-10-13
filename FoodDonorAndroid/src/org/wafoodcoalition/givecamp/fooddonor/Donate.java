@@ -199,7 +199,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	private void showRequiredFieldsAlert() {
 		new AlertDialog.Builder(this)
 		.setTitle("Required Information Missing")
-	    .setMessage("Please provide a description and types of food you're donating "
+	    .setMessage("Please provide a description and the types of food you're donating "
 	    		+ "(a minimum of 20 characters) and "
 	    		+ "either an email address or a phone number.")
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
