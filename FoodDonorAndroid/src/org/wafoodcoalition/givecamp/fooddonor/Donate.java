@@ -31,6 +31,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 public class Donate extends Activity implements LocationUpdated, OnClickListener {
 	SharedPreferences settings;
@@ -45,7 +46,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	FoodLocation detectedLocation;
 	FoodLocation location;
 	Button submitButton;
-		
+	ProgressBar progressBar;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,9 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			    
 	    submitButton = (Button) findViewById(R.id.submit);
 	    submitButton.setOnClickListener(this);
+	    
+	    progressBar = (ProgressBar) findViewById(R.id.progress);
+	    progressBar.setVisibility(View.INVISIBLE);
 	}
 	
 	@Override
@@ -183,6 +187,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	     .show();	
 	}
 	private void showNetworkAlert() {
+		progressBar.setVisibility(View.INVISIBLE); //in case its showing.
 		new AlertDialog.Builder(this)
 	    .setTitle("Network Connection Failure")
 	    .setMessage("Please turn on data network or wi-fi.")
@@ -197,6 +202,18 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		new AlertDialog.Builder(this)
 	    .setTitle("Location not available")
 	    .setMessage("We could not detect your location. You cannot post a donation.")
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();	
+	}
+	
+	private void showLocationOutOfRangeAlert() {
+		new AlertDialog.Builder(this)
+	    .setTitle("Only for WA state.")
+	    .setMessage("Your location is outside of Washington state. You cannot post donation food pickup requests using this app.")
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	            // continue
@@ -246,13 +263,25 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		editor.commit();
 	}
 
+	private boolean checkLocation() {
+		if(location==null) {
+			showLocationMissingAlert();
+			return false;
+		}
+	    if (!(location.getLat()  > 44.5 &&
+	    		location.getLat()  < 49.2 &&
+	    		location.getLng() > -125.43 &&
+	    		location.getLng() < -116.8)) {
+	    	showLocationOutOfRangeAlert();
+	    	return false;
+	    } 
+	    return true;
+	}
 	private void postToService() {
 		//{"Name":"NameTestX","Email":"some@hotmail.com","Phone":"5555555555","Address":"some random place","Latitude":16.0,"Longitude":65.0,"Description":"5 pounds of potatoes","Status":"New","ExpirationDate":"2013-10-12T12:55:45","FoodBankID":0}]
 		try {
-			if(location==null) {
-				showLocationMissingAlert();
-				return;
-			}
+
+			if(!checkLocation()) return;
 			JSONObject obj = new JSONObject();
 			obj.put("Name", nameEdit.getText().toString());
 			obj.put("Email", email.getText().toString());
@@ -265,6 +294,8 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			obj.put("ExpirationDate", getDateStringFromDatePicker()); //"2013-10-14T12:55:55"
 			obj.toString();
 			
+			progressBar.bringToFront();
+			progressBar.setVisibility(View.VISIBLE);
 			new DonateTask(obj, "http://sgcwfcorg00.web803.discountasp.net/api/Donation").execute();
 		} catch (JSONException e) {
 			Log.e("JSON", e.getMessage());
@@ -280,11 +311,10 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		}
 		@Override
 		protected Integer doInBackground(Void... unsued) {
-			try {				
+			try {	
 				return HttpUtil.post(obj, url);
 			} catch (IOException e) {
 				Log.e(e.getClass().getName(), e.getMessage(), e);
-				showNetworkAlert();
 				return 0;
 			}
 		}
@@ -297,12 +327,15 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		@Override
 		protected void onPostExecute(Integer sResponse) {
 			Log.v("POST", String.valueOf(sResponse));
+			progressBar.setVisibility(View.INVISIBLE);
 			if(sResponse>0) {
-				if(sResponse==201) {
+				if(sResponse==201) {					
 					showPostedAlert();
 				} else {
 					showPostFailedAlert(sResponse);
 				}
+			} else {
+				showNetworkAlert();
 			}
 		}
 	}
