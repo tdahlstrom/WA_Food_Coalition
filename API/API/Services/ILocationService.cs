@@ -6,7 +6,7 @@ using System.Web;
 
 namespace API.Services {
     public interface ILocationService {
-        List<FoodBank> GetNearbyFoodBanks(double latitude, double longitude, int amountToReturn);
-        List<Donation> GetNearbyDonations(double latitude, double longitude);
+        List<FoodBankDistanceResult> GetNearbyFoodBanks(double latitude, double longitude, int amountToReturn);
+        List<DonationDistanceResult> GetNearbyDonations(double latitude, double longitude);
     }
 }

@@ -17,9 +17,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Patterns;
@@ -31,6 +33,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 public class Donate extends Activity implements LocationUpdated, OnClickListener {
+	SharedPreferences settings;
 	
 	private EditText phone;
 	private EditText email;
@@ -48,7 +51,9 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_donate);
-		
+		settings = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+
+		loadNameOnView();
 		setDefaultPhoneOnView();
 		setCurrentDateOnView();
 		setDefaultEmailOnView();
@@ -74,6 +79,11 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_donate, menu);
 		return true;
+	}
+	
+	public void loadNameOnView() {
+		nameEdit = (EditText) findViewById(R.id.name);
+		nameEdit.setText(settings.getString("name", ""));
 	}
 	
 	// display current date
@@ -144,6 +154,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			showLocationMissingAlert();
 			return;
 		}
+		rememberString("name", nameEdit.getText().toString());
 		updateAddress();
 		postToService();
 	}
@@ -218,6 +229,23 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	     .show();	
 	}
 	
+	private String getDateStringFromDatePicker() {
+		String time = "T12:55:55";
+		String dateString = 
+				String.valueOf(dpResult.getYear()) + "-" +
+				String.format("%02d", 1 + dpResult.getMonth()) + "-" + // month is 0 indexed
+				String.format("%02d", dpResult.getDayOfMonth()) +
+				time;
+		
+		return dateString;
+	}
+	
+	private void rememberString(String key, String value) {
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(key, value);
+		editor.commit();
+	}
+
 	private void postToService() {
 		//{"Name":"NameTestX","Email":"some@hotmail.com","Phone":"5555555555","Address":"some random place","Latitude":16.0,"Longitude":65.0,"Description":"5 pounds of potatoes","Status":"New","ExpirationDate":"2013-10-12T12:55:45","FoodBankID":0}]
 		try {
@@ -234,7 +262,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			obj.put("Longitude", location.getLng());
 			obj.put("Description", descriptionEdit.getText());
 			obj.put("Status", "New");
-			obj.put("ExpirationDate", "2013-10-14T12:55:45");
+			obj.put("ExpirationDate", getDateStringFromDatePicker()); //"2013-10-14T12:55:55"
 			obj.toString();
 			
 			new DonateTask(obj, "http://sgcwfcorg00.web803.discountasp.net/api/Donation").execute();
@@ -278,5 +306,4 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			}
 		}
 	}
-
 }

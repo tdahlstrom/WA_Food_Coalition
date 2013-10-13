@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Account_Login : System.Web.UI.Page
+namespace Food_Bank_Web.Account
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Login : System.Web.UI.Page
     {
-        RegisterHyperLink.NavigateUrl = "Register.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            RegisterHyperLink.NavigateUrl = "Register.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+        }
     }
 }

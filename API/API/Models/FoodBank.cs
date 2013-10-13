@@ -27,4 +27,11 @@ namespace API.Models {
 
         // More fields to be defined later
     }
+
+    public class FoodBankDistanceResult : FoodBank
+    {
+        [Required]
+        [Display(Name = "Distance")]
+        public float Distance { get; set; }
+    }
 }

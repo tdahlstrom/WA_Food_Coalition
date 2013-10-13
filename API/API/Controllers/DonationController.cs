@@ -9,31 +9,20 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using API.Models;
+using API.Services;
 
 namespace API.Controllers
 {
     public class DonationController : ApiController
     {
         private FoodCoalitionAppContext db = new FoodCoalitionAppContext();
+        private ILocationService locationService = new ConcreteLocationService();
 
         // GET api/Donation
         public IQueryable<Donation> GetDonations()
         {
-            Donation d = new Donation();
-            //d.Name = "Abe";
-            //d.Email = "some@hotmail.com";
-            //d.Description = "5 pounds of potatoes";
-            //d.ExpirationDate = DateTime.Now;
-            //d.Latitude = 16.0;
-            //d.Longitude = 65.0;
-            //d.Phone = "5555555555";
-            //d.Status = "New";
-            //d.Address = "some random place";
-
-        
-            //db.Donations.Add(d);
-            //db.SaveChanges();
-            return db.Donations;
+            var rv = db.Donations;
+            return rv;
         }
 
         // GET api/Donation/5
@@ -49,9 +38,18 @@ namespace API.Controllers
             return Ok(donation);
         }
 
-        // Get donations associated to the ** FoodBank ID **
+        // Get donations associated to the ** FoodBank ID ** that are pending
+        public IQueryable<Donation> Get(int foodBankId, string status) {
+            return db.Donations.Where(d => d.FoodBankID == foodBankId && d.Status.Equals(status)).AsQueryable();
+        }
+
+        // Get donations that are near the food bank
         public IQueryable<Donation> Get(int foodBankId) {
-            return db.Donations.Where(d => d.FoodBankID == foodBankId).AsQueryable();
+            FoodBank foodBank = db.FoodBanks.Find(foodBankId);
+            if (foodBank == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return locationService.GetNearbyDonations(foodBank.Latitude, foodBank.Longitude).AsQueryable();
         }
 
         // PUT api/Donation/5
@@ -123,11 +121,24 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Donations.Add(donation);
-            db.SaveChanges();
+            /* Validate coordinates are within Washington */
+            if (donation.Latitude  > 44.5 &&
+                donation.Latitude  < 49.2 &&
+                donation.Longitude > -125.43 &&
+                donation.Longitude < -116.8)
+            {
 
-            return CreatedAtRoute("DefaultApi", new { id = donation.ID }, donation);
+                db.Donations.Add(donation);
+                db.SaveChanges();
+                return CreatedAtRoute("DefaultApi", new { id = donation.ID }, donation);
+            }
+
+            else
+            {
+                return BadRequest("Coordinates out of range.");
+            }   
         }
+
 
         // DELETE api/Donation/5
         [ResponseType(typeof(Donation))]

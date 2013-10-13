@@ -13,7 +13,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-public class LocationDetection implements LocationListener{
+public class LocationDetection implements LocationListener {
 	private static LocationDetection detector = null;
 		
 	private LocationManager locationManager;

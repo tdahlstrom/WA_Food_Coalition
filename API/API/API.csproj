@@ -77,9 +77,38 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="WebForms\Maps.aspx" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="WebForms\DonationDetail.aspx" />
+    <Content Include="WebForms\Donations.aspx" />
+    <None Include="WebForms\Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="WebForms\img\glyphicons-halflings-white.png" />
+    <Content Include="WebForms\img\glyphicons-halflings.png" />
+    <Content Include="WebForms\img\space.png" />
+    <Content Include="WebForms\img\truck.png" />
+    <Content Include="WebForms\Login.aspx" />
+    <Content Include="WebForms\menu.ascx" />
+    <Content Include="WebForms\Scripts\jquery-1.4.1.js" />
+    <Content Include="WebForms\Scripts\jquery-1.4.1.min.js" />
+    <Content Include="WebForms\Settings.aspx" />
+    <Content Include="WebForms\Shortages.aspx" />
+    <Content Include="WebForms\Styles\bootstrap-responsive.css" />
+    <Content Include="WebForms\Styles\bootstrap-responsive.min.css" />
+    <Content Include="WebForms\Styles\bootstrap.css" />
+    <Content Include="WebForms\Styles\bootstrap.min.css" />
+    <Content Include="WebForms\Styles\donationDetails.css" />
+    <Content Include="WebForms\Styles\donations.css" />
+    <Content Include="WebForms\Styles\main.css" />
+    <Content Include="WebForms\Styles\settings.css" />
+    <Content Include="WebForms\Styles\shortages.css" />
+    <Content Include="WebForms\Styles\signin.css" />
+    <Content Include="WebForms\Styles\Site.css" />
+    <Content Include="WebForms\Site.master" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -88,8 +117,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Maps.aspx.cs">
+      <DependentUpon>Maps.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Maps.aspx.designer.cs">
+      <DependentUpon>Maps.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Donation.cs" />
+    <Compile Include="Models\DonationDistanceResult.cs" />
     <Compile Include="Models\FoodCoalitionAppContext.cs" />
     <Compile Include="Models\FoodBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,11 +134,61 @@
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ILocationService.cs" />
     <Compile Include="Services\TestLocationService.cs" />
+    <Compile Include="WebForms\DonationDetail.aspx.cs">
+      <DependentUpon>DonationDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\DonationDetail.aspx.designer.cs">
+      <DependentUpon>DonationDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Donations.aspx.cs">
+      <DependentUpon>Donations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Donations.aspx.designer.cs">
+      <DependentUpon>Donations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\menu.ascx.cs">
+      <DependentUpon>menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\menu.ascx.designer.cs">
+      <DependentUpon>menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Shortages.aspx.cs">
+      <DependentUpon>Shortages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Shortages.aspx.designer.cs">
+      <DependentUpon>Shortages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Site.master.cs">
+      <DependentUpon>Site.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Site.Master.designer.cs">
+      <DependentUpon>Site.master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\sgc-wfc.org - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sgc-wfc.org - Web Deploy.pubxml" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

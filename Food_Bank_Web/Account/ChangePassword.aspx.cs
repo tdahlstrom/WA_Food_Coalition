@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Account_ChangePassword : System.Web.UI.Page
+namespace Food_Bank_Web.Account
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class ChangePassword : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
