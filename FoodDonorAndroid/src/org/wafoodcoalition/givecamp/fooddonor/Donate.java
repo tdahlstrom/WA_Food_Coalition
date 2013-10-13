@@ -51,7 +51,11 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		
 	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 	    LocationDetection.init(this.getApplicationContext());
-	    LocationDetection.instance().detectLocation(lm, this);
+	    
+	    LocationDetection locationDetection = LocationDetection.instance();
+	    if (locationDetection != null) {
+	    	locationDetection.detectLocation(lm, this);
+	    }
 	    
 	    submitButton = (Button) findViewById(R.id.submit);
 	    submitButton.setOnClickListener(this);
@@ -136,8 +140,31 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		//TODO: handle the case if no location.
 	}
 	
+	private String getDateStringFromDatePicker() {
+		String time = "T12:55:55";
+		String dateString = 
+				String.valueOf(dpResult.getYear()) + "-" +
+				String.format("%02d", 1 + dpResult.getMonth()) + "-" + // month is 0 indexed
+				String.format("%02d", dpResult.getDayOfMonth()) +
+				time;
+		
+		return dateString;
+	}
+	
 	private void postToService() {
-		//{"Name":"NameTestX","Email":"some@hotmail.com","Phone":"5555555555","Address":"some random place","Latitude":16.0,"Longitude":65.0,"Description":"5 pounds of potatoes","Status":"New","ExpirationDate":"2013-10-12T12:55:45","FoodBankID":0}]
+		/*
+		 * { "Name":"NameTestX",
+		 *   "Email":"some@mail.com",
+		 *   "Phone":"5555555555",
+		 *   "Address":"some random place",
+		 *   "Latitude":16.0,
+		 *   "Longitude":65.0,
+		 *   "Description":"5 pounds of potatoes",
+		 *   "Status":"New",
+		 *   "ExpirationDate":"2013-10-12T12:55:55",
+		 *   "FoodBankID":0
+		 * }
+		 */
 		try {
 			JSONObject obj = new JSONObject();
 			obj.put("Name", nameEdit.getText().toString());
@@ -148,7 +175,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			obj.put("Longitude", location.getLng());
 			obj.put("Description", descriptionEdit.getText());
 			obj.put("Status", "New");
-			obj.put("ExpirationDate", "2013-10-14T12:55:45");
+			obj.put("ExpirationDate", getDateStringFromDatePicker()); //"2013-10-14T12:55:55"
 			obj.toString();
 			
 			new DonateTask(obj, "http://sgcwfcorg00.web803.discountasp.net/api/Donation").execute();
@@ -156,5 +183,4 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			throw new RuntimeException(e);
 		}
 	}
-
 }
