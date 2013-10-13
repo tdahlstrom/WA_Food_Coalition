@@ -2,6 +2,8 @@
 using API.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -42,20 +44,46 @@ namespace API.Controllers {
             return CreatedAtRoute("DefaultApi", new { id = foodBank.ID }, foodBank);
         }
 
+        // Update
+        public IHttpActionResult Put(int id, FoodBank foodBank) {
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+            if (id != foodBank.ID) {
+                return BadRequest();
+            }
+            _db.Entry(foodBank).State = EntityState.Modified;
+
+            try {
+                _db.SaveChanges();
+            } catch (DbUpdateConcurrencyException) {
+                if (!FoodBankExists(id)) {
+                    return NotFound();
+                } else {
+                    throw;
+                }
+            }
+
+            return Ok();
+        }
+
+        // Delete api/FoodBank/5
+        [ResponseType(typeof (FoodBank))]
+        public IHttpActionResult Delete(int id) {
+            FoodBank foodBank = _db.FoodBanks.Find(id);
+
+            if (foodBank == null) {
+                return NotFound();
+            }
+
+            _db.FoodBanks.Remove(foodBank);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        private bool FoodBankExists(int id) {
+            return _db.Donations.Count(e => e.ID == id) > 0;
+        }
     }
 }
-
-        //// POST api/Donation
-        //[ResponseType(typeof(Donation))]
-        //public IHttpActionResult PostDonation(Donation donation)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    db.Donations.Add(donation);
-        //    db.SaveChanges();
-
-        //    return CreatedAtRoute("DefaultApi", new { id = donation.ID }, donation);
-        //}

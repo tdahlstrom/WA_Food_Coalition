@@ -49,6 +49,11 @@ namespace API.Controllers
             return Ok(donation);
         }
 
+        // Get donations associated to the ** FoodBank ID **
+        public IQueryable<Donation> Get(int foodBankId) {
+            return db.Donations.Where(d => d.FoodBankID == foodBankId).AsQueryable();
+        }
+
         // PUT api/Donation/5
         public IHttpActionResult PutDonation(int id, Donation donation)
         {
