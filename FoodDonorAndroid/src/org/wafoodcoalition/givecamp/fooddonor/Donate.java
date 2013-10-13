@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import org.wafoodcoalition.givecamp.fooddonor.location.FoodLocation;
 import org.wafoodcoalition.givecamp.fooddonor.location.LocationDetection;
 import org.wafoodcoalition.givecamp.fooddonor.location.LocationUpdated;
-import org.wafoodcoalition.givecamp.fooddonor.service.DonationServiceWrapper;
+import org.wafoodcoalition.givecamp.fooddonor.service.DonateTask;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -29,6 +29,8 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	private EditText phone;
 	private DatePicker dpResult;
 	private EditText email;
+	private EditText nameEdit;
+	private EditText descriptionEdit;
 	
 	EditText locationEdit = null;
 	FoodLocation location;
@@ -43,6 +45,9 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		setDefaultEmailOnView();
 		
 		locationEdit = (EditText) findViewById(R.id.location);
+		nameEdit = (EditText) findViewById(R.id.name);
+		descriptionEdit = (EditText) findViewById(R.id.description);
+		
 	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 	    LocationDetection.init(this.getApplicationContext());
 	    LocationDetection.instance().detectLocation(lm, this);
@@ -103,9 +108,11 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	}
 	
 	public void updated(FoodLocation l) {
-		this.location = l;
-		locationEdit.setText(l.getAddress());
-		locationEdit.postInvalidate();
+		if(l!=null) {
+			this.location = l;
+			locationEdit.setText(l.getAddress());
+			locationEdit.postInvalidate();
+		}
 	}
 	public void onClick(View arg0) {
 		if(arg0==submitButton) {
@@ -130,18 +137,18 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		//{"Name":"NameTestX","Email":"some@hotmail.com","Phone":"5555555555","Address":"some random place","Latitude":16.0,"Longitude":65.0,"Description":"5 pounds of potatoes","Status":"New","ExpirationDate":"2013-10-12T12:55:45","FoodBankID":0}]
 		try {
 			JSONObject obj = new JSONObject();
-			obj.put("Name", "NameTestX");
-			obj.put("Email", "test@hotmail.com");
-			obj.put("Phone", "1115559999");
+			obj.put("Name", nameEdit.getText().toString());
+			obj.put("Email", email.getText().toString());
+			obj.put("Phone", phone.getText().toString());
 			obj.put("Address", location.getAddress());
 			obj.put("Latitude", location.getLat());
 			obj.put("Longitude", location.getLng());
-			obj.put("Description", "lots of food");
+			obj.put("Description", descriptionEdit.getText());
 			obj.put("Status", "New");
 			obj.put("ExpirationDate", "2013-10-14T12:55:45");
 			obj.toString();
 			
-			DonationServiceWrapper.post(obj);
+			new DonateTask(obj, "http://sgcwfcorg00.web803.discountasp.net/api/Donation").execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

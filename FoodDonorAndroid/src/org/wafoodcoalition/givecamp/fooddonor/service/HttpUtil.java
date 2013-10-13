@@ -14,6 +14,8 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class HttpUtil {
 	private static HttpClient getHttpClient() {
 		HttpParams httpParams = new BasicHttpParams();
@@ -48,14 +50,16 @@ public class HttpUtil {
 	
 	public static int post(JSONObject obj, String url) throws IOException {
 		HttpClient httpClient = getHttpClient();
-		HttpContext localContext = new BasicHttpContext();
 		HttpPost post = new HttpPost(url);
 		
+		Log.v("POST", obj.toString());
 		StringEntity requestEntity = new StringEntity(obj.toString());
-		requestEntity.setContentEncoding(new BasicHeader("Content-Type", "application/json"));
+		//StringEntity requestEntity = new StringEntity("{\"Name\":\"NameTestX\",\"Email\":\"some@hotmail.com\",\"Phone\":\"5555555555\",\"Address\":\"some random place\",\"Latitude\":16.0,\"Longitude\":65.0,\"Description\":\"5 pounds of potatoes\",\"Status\":\"New\",\"ExpirationDate\":\"2013-10-12T12:55:45\",\"FoodBankID\":0}");
+		requestEntity.setContentType("application/json");
 		post.setEntity(requestEntity); 
 
-		HttpResponse response = httpClient.execute(post, localContext);
+		HttpResponse response = httpClient.execute(post);
+		//Log.v("POST", response.getFirstHeader("location").toString());
 		return response.getStatusLine().getStatusCode();
 	}
 }
