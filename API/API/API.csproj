@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Donation.cs" />
+    <Compile Include="Models\DonationDistanceResult.cs" />
     <Compile Include="Models\FoodCoalitionAppContext.cs" />
     <Compile Include="Models\FoodBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
