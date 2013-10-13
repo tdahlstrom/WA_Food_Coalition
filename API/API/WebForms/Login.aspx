@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Food_Bank_Web.Login" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Food_Bank_Web.Login" MasterPageFile="Site.Master" %>
 
 <asp:Content ID="signinHeader" ContentPlaceHolderID="pageHead" runat="Server">
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/signin.css") %>" rel="stylesheet" />

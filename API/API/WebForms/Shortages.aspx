@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Shortages.aspx.cs" Inherits="Food_Bank_Web.Shortages" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Shortages.aspx.cs" Inherits="Food_Bank_Web.Shortages" MasterPageFile="Site.Master" %>
 <asp:Content ID="shortageHeader" ContentPlaceHolderID="pageHead" runat="Server">
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/shortages.css") %>" rel="stylesheet" />
 </asp:Content>
