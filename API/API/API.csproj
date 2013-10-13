@@ -87,12 +87,26 @@
     <Content Include="WebForms\DonationDetail.aspx" />
     <Content Include="WebForms\Donations.aspx" />
     <None Include="WebForms\Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="WebForms\img\glyphicons-halflings-white.png" />
+    <Content Include="WebForms\img\glyphicons-halflings.png" />
+    <Content Include="WebForms\img\space.png" />
+    <Content Include="WebForms\img\truck.png" />
     <Content Include="WebForms\Login.aspx" />
     <Content Include="WebForms\menu.ascx" />
     <Content Include="WebForms\Scripts\jquery-1.4.1.js" />
     <Content Include="WebForms\Scripts\jquery-1.4.1.min.js" />
     <Content Include="WebForms\Settings.aspx" />
     <Content Include="WebForms\Shortages.aspx" />
+    <Content Include="WebForms\Styles\bootstrap-responsive.css" />
+    <Content Include="WebForms\Styles\bootstrap-responsive.min.css" />
+    <Content Include="WebForms\Styles\bootstrap.css" />
+    <Content Include="WebForms\Styles\bootstrap.min.css" />
+    <Content Include="WebForms\Styles\donationDetails.css" />
+    <Content Include="WebForms\Styles\donations.css" />
+    <Content Include="WebForms\Styles\main.css" />
+    <Content Include="WebForms\Styles\settings.css" />
+    <Content Include="WebForms\Styles\shortages.css" />
+    <Content Include="WebForms\Styles\signin.css" />
     <Content Include="WebForms\Styles\Site.css" />
     <Content Include="WebForms\Site.master" />
   </ItemGroup>

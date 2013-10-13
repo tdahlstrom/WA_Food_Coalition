@@ -12,14 +12,6 @@ namespace Food_Bank_Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblFoodType.Text = "Cat Food";
-            lblFoodAmount.Text = "20 cans";
-            lblAddress.Text = "123 Test Dr, City, State 12345";
-            lblDistance.Text = "2.35 miles";
-            lblContactName.Text = "Donald Duck";
-            lblContact.Text = "123-456-7690";
-            HideAll();
-            phOpen.Visible = true;
         }
 
         protected void btnPickup_Click(object sender, EventArgs e)

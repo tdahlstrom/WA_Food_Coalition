@@ -5,22 +5,34 @@
 
     <script type="text/javascript">
         function getDonations() {
-
             $.getJSON("/api/donation",
             function (data) {
                 $('#donations').empty(); // Clear the table body.
-
                 // Loop through the list of products.
                 $.each(data, function (key, val) {
                     // Add a table row for the product.
-                    var row = '<tr>' + JSON.stringify(val) + '</td>';
-                    $('<tr/>', { text: row })  // Append the name.
+                    var row = '<td class="food"><div class="description" onclick="viewDonation(' + val.ID+ ')">' + val.Description + '</div>' + val.Address + '</td>';
+                    row = row + '<td class="distance"><div onclick="viewDonation(' + val.ID + ')">';
+                    row = row + '<img src="';
+                    if (val.Status.toLowerCase() == "new") {
+                        row = row + '<%= Page.ResolveClientUrl("~/WebForms/img/truck.png") %>';
+                    } else {
+                        row = row + '<%= Page.ResolveClientUrl("~/WebForms/img/space.png") %>';
+                    }
+                    row = row + '"></div></td>';
+                    
+                    $('<tr/>', { html: row})  // Append the donations.
                         .appendTo($('#donations'));
+                    
                 });
             });
         }
 
-       $(document).ready(getDonations);
+        function viewDonation(id) {
+            window.open("DonationDetail.aspx?donationId=" + id);
+        }
+
+        $(document).ready(getDonations);
 </script>
 </asp:Content>
 <asp:Content ID="donationContent" ContentPlaceHolderID="pageContent" runat="Server">
@@ -37,32 +49,8 @@
         </ItemTemplate>
     </asp:ListView>
 
-    <table id="donations"></table>
+    <table id="donations" class="donationList"></table>
     
 
-    <asp:GridView ID="gvDonations" runat="server" CssClass="donationList" AutoGenerateColumns="false"
-        ShowHeader="false" RowStyle-CssClass="donationRow" AlternatingRowStyle-CssClass="donationRowAlt"
-        OnRowDataBound="gvDonation_RowDataBound">
-        <Columns>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <div class="description">
-                        <asp:Label ID="lblFoodType" runat="server" Text="<%# Bind('FoodType') %>"></asp:Label>
-                        -
-                        <asp:Label ID="lblFoodAmount" runat="server" Text="<%# Bind('FoodAmount') %>"></asp:Label>
-                        <br />
-                        <asp:Label ID="lblAddress" runat="server" Text="<%# Bind('Address') %>" CssClass="address"></asp:Label>
-                    </div>
-                    <div class="status">
-                        <asp:Image ID="imgStatus" runat="server" ImageUrl=<%# Bind('StatusImage') %> />
-                    </div>
-                    <div class="distance">
-                        <asp:Label ID="lblDistance" runat="server" Text="<%# Bind('Distance') %>"></asp:Label>
-                        miles
-                    </div>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
 </asp:Content>
 

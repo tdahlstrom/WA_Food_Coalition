@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" MasterPageFile="Site.Master" %>
 
 <asp:Content ID="settingPage" ContentPlaceHolderID="pageHead" runat="Server">
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/settings.css") %>" rel="stylesheet" />

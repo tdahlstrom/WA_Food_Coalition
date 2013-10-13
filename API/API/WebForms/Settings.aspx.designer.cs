@@ -9,7 +9,7 @@
 
 
 
-public partial class  {
+public partial class Settings {
     
     /// <summary>
     /// lblEmail control.
