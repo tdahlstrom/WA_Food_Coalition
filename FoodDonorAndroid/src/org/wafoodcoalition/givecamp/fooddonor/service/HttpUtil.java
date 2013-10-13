@@ -56,6 +56,7 @@ public class HttpUtil {
 		post.setEntity(requestEntity); 
 
 		HttpResponse response = httpClient.execute(post);
+		
 		//Log.v("POST", response.getFirstHeader("location").toString());
 		return response.getStatusLine().getStatusCode();
 	}
