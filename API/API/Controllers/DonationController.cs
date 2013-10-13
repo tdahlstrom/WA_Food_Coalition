@@ -125,7 +125,7 @@ namespace API.Controllers
             if (donation.Latitude  > 44.5 &&
                 donation.Latitude  < 49.2 &&
                 donation.Longitude > -125.43 &&
-                donation.Longitude < 116.8)
+                donation.Longitude < -116.8)
             {
 
                 db.Donations.Add(donation);
