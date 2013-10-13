@@ -11,7 +11,6 @@ namespace API.Services {
             throw new NotImplementedException();
         }
 
-
         public List<Donation> GetNearbyDonations(FoodBank foodBank) {
             throw new NotImplementedException();
         }
