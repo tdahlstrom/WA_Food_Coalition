@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class LocationDetection {
-	private static LocationDetection detector = new LocationDetection();
+	private static LocationDetection detector = null;
 	
 	
 	private LocationListener locationListener = new LocationDetectionListener();
@@ -25,14 +25,26 @@ public class LocationDetection {
 		
 	}
 	
-	public static void init(Context c, LocationManager lm, LocationUpdated listener) {
-		detector.geocoder = new Geocoder(c, Locale.ENGLISH);
-		detector.updateListener = listener;
-		getLatLng(lm);
-		lm.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 10000, 1, detector.locationListener);
-		lm.requestLocationUpdates(
-				LocationManager.GPS_PROVIDER, 10000, 1, detector.locationListener);
+	public static LocationDetection instance() {
+		return detector;
+	}
+	
+	public static void init(Context c) {
+		if(detector==null) {
+			 detector = new LocationDetection();		
+			 detector.geocoder = new Geocoder(c, Locale.ENGLISH);
+		}
+	}
+	
+	public void detectLocation(LocationManager lm, LocationUpdated listener) {
+		if(lm!=null) {
+			getLatLng(lm);
+			lm.requestLocationUpdates(
+					LocationManager.NETWORK_PROVIDER, 10000, 1, detector.locationListener);
+			lm.requestLocationUpdates(
+					LocationManager.GPS_PROVIDER, 10000, 1, detector.locationListener);
+			detector.updateListener = listener;
+		}
 	}
 	
 	public class LocationDetectionListener implements LocationListener {
@@ -93,7 +105,7 @@ public class LocationDetection {
 		}
 	}
 	
-	public FoodLocation GeoCode(String address) {
+	public FoodLocation geoCode(String address) {
 		if (address != null && address.trim().length()>5) {			
 			try {
 				List<Address> locations = geocoder.getFromLocationName(address, 1);
