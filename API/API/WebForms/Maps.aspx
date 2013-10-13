@@ -1,31 +1,29 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Maps.aspx.cs" Inherits="API.Maps" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Maps.aspx.cs" Inherits="API.Maps" MasterPageFile="Site.master" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
+<asp:Content runat="server" ContentPlaceHolderID="pageHead">
     <style>
         #map-canvas {
             height: 500px;
             margin: 0;
             padding: 0;
         }
+
         #map-canvas img {
             max-width: none;
         }
     </style>
-</head>
-<body>
-    
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="pageContent">
+
     <div id="map-canvas"></div>
-    
-    <script src="Scripts/jquery-2.0.3.min.js"></script>
+
+    <script src="/Scripts/jquery-2.0.3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
         var map;
         var openInfoWindow;
-        
+
         function initialize() {
             var mapOptions = {
                 zoom: 7,
@@ -34,7 +32,7 @@
             };
             map = new google.maps.Map($('#map-canvas')[0], mapOptions);
         }
-        
+
         function showMarkers(locations) {
             locations.forEach(function (loc) {
                 var marker = new google.maps.Marker({
@@ -73,5 +71,4 @@
             });
         })
     </script>
-</body>
-</html>
+</asp:Content>

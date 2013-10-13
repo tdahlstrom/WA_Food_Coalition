@@ -21,8 +21,8 @@ namespace API.Controllers
         // GET api/Donation
         public IQueryable<Donation> GetDonations()
         {
-            Donation d = new Donation();
-            return db.Donations;
+            var rv = db.Donations;
+            return rv;
         }
 
         // GET api/Donation/5

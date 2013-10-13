@@ -8,7 +8,7 @@
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/bootstrap.css") %>" rel="stylesheet" />
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/bootstrap-responsive.css") %>" rel="stylesheet" />
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/main.css") %>" rel="stylesheet" />
-    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/WebForms/Scripts/jquery.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-2.0.3.min.js") %>"></script>
 
     <asp:ContentPlaceHolder ID="pageHead" runat="server">
     </asp:ContentPlaceHolder>
