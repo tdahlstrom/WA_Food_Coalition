@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.master" AutoEventWireup="true"
-    CodeFile="DonationDetail.aspx.cs" Inherits="DonationDetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DonationDetail.aspx.cs" Inherits="Food_Bank_Web.DonationDetail" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="pageHead" runat="Server">
     <link href="<%= Page.ResolveClientUrl("~/Styles/donationDetails.css") %>" rel="stylesheet" />
