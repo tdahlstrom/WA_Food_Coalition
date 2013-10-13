@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Web Developer Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food_Bank_Web", "Food_Bank_Web\Food_Bank_Web.csproj", "{A1379F28-433D-425F-871C-E0DABBC74F6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1379F28-433D-425F-871C-E0DABBC74F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
