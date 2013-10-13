@@ -12,5 +12,5 @@
     <string name="phone">Your contact number</string>
 	<string name="location">Your address</string>
 	<string name="cancel">Cancel</string>
-	<string name="submit">Request pickup</string>
+	<string name="submit">Request food pickup</string>
 </resources>

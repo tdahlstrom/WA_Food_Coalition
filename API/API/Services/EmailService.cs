@@ -49,7 +49,7 @@ namespace API.Services {
             string messageBody = _emailBody.Replace("%Address%", donation.Address)
                                            .Replace("%ExpirationDate%", donation.ExpirationDate.ToShortDateString());
             if (!string.IsNullOrEmpty(donation.Description)) {
-                messageBody += _optionalDescriptionBody.Replace("%SMTOOptionalDescription%", donation.Description);
+                messageBody += _optionalDescriptionBody.Replace("%Description%", donation.Description);
             }
             string contact = "";
             if (!string.IsNullOrEmpty(donation.Phone))
