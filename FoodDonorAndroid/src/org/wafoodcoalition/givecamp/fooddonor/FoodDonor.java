@@ -2,7 +2,6 @@ package org.wafoodcoalition.givecamp.fooddonor;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -12,7 +11,7 @@ public class FoodDonor extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_food_donor);
-	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+	    getSystemService(Context.LOCATION_SERVICE); 
 	}
 
 	@Override

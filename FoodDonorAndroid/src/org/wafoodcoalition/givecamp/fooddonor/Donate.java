@@ -49,7 +49,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	FoodLocation location;
 	Button foodBankMapButton;
 	Button submitButton;
-	ProgressBar progressBar;	
+	ProgressBar progressBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,9 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		foodBankMapButton.setOnClickListener(this);
 		
 	    submitButton = (Button) findViewById(R.id.submit);
+	    submitButton.setEnabled(false);
+	    submitButton.setText("Detecting location ...");
+	    submitButton.postInvalidate();
 	    submitButton.setOnClickListener(this);
 	    
 	    progressBar = (ProgressBar) findViewById(R.id.progress);
@@ -146,11 +149,16 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 				locationEdit.setText(l.getAddress());
 				locationEdit.postInvalidate();
 			}
+			submitButton.setEnabled(true);
+		    submitButton.setText("Request food pickup");
+		    submitButton.postInvalidate();
 		}
 	}
+	
 	public void failed() {
 		
 	}
+	
 	/** location **/
 
 	public void onClick(View arg0) {
@@ -339,6 +347,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	    } 
 	    return true;
 	}
+	
 	private void postToService() {
 		//{"Name":"NameTestX","Email":"some@hotmail.com","Phone":"5555555555","Address":"some random place","Latitude":16.0,"Longitude":65.0,"Description":"5 pounds of potatoes","Status":"New","ExpirationDate":"2013-10-12T12:55:45","FoodBankID":0}]
 		try {
@@ -352,12 +361,16 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			obj.put("Latitude", location.getLat());
 			obj.put("Longitude", location.getLng());
 			obj.put("Description", descriptionEdit.getText());
-			obj.put("Status", "New");
+			obj.put("Status", "Open");
 			obj.put("ExpirationDate", getDateStringFromDatePicker()); //"2013-10-14T12:55:55"
 			obj.toString();
 			
 			progressBar.bringToFront();
 			progressBar.setVisibility(View.VISIBLE);
+			
+			// Disable the submit button
+			submitButton.setEnabled(false);
+			
 			new DonateTask(obj, "http://sgcwfcorg00.web803.discountasp.net/api/Donation").execute();
 		} catch (JSONException e) {
 			Log.e("JSON", e.getMessage());
@@ -390,6 +403,8 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		protected void onPostExecute(Integer sResponse) {
 			Log.v("POST", String.valueOf(sResponse));
 			progressBar.setVisibility(View.INVISIBLE);
+			submitButton.setEnabled(true);
+			
 			if(sResponse>0) {
 				if(sResponse==201) {					
 					showPostedAlert();
