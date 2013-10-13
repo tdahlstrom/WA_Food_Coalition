@@ -18,6 +18,7 @@ namespace API.Controllers
         private FoodCoalitionAppContext db = new FoodCoalitionAppContext();
         private ILocationService locationService = new ConcreteLocationService();
         private EmailService emailService = new EmailService();
+        private ExpirationService expirationService = new ExpirationService();
 
         // GET api/Donation
         public IQueryable<Donation> GetDonations()
@@ -110,6 +111,14 @@ namespace API.Controllers
                 return NotFound();
             }
 
+            return Ok();
+        }
+
+        [ActionName("CloseExpiredDonations")]
+        // POST api/Donation/CloseExpiredDonations
+        public IHttpActionResult PostCloseExpiredDonations()
+        {
+            expirationService.CloseExpiredDonations();
             return Ok();
         }
 
