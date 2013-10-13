@@ -76,7 +76,7 @@ public class Donate extends Activity implements LocationUpdated {
 		String phoneNumber = tMgr.getLine1Number();
 		
 		if (phoneNumber != null) {
-			phone.setText(phoneNumber);
+			phone.setText(phoneNumber.substring(1));
 		}
 	}
 	
