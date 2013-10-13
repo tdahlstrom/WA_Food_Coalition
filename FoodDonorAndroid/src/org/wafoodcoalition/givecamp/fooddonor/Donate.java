@@ -13,8 +13,10 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Patterns;
 import android.view.Menu;
@@ -26,27 +28,34 @@ import android.widget.EditText;
 
 public class Donate extends Activity implements LocationUpdated, OnClickListener {
 	
-	private EditText phone;
-	private EditText email;
-	private DatePicker dpResult;
-	private EditText nameEdit;
-	private EditText descriptionEdit;
+	// Application specific settings for saving preferences
+	SharedPreferences settings;
 	
-	EditText locationEdit = null;
-	FoodLocation location;
-	Button submitButton;
+	private EditText descriptionEdit;
+	private EditText nameEdit;
+	private EditText email;
+	private EditText phone;
+	private DatePicker dpResult;
+	private EditText locationEdit = null;
+	
+	private FoodLocation location;
+	private Button submitButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_donate);
 		
+		// get application settings
+		settings = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+		
+		loadNameOnView();
 		setDefaultPhoneOnView();
 		setCurrentDateOnView();
 		setDefaultEmailOnView();
 		
 		locationEdit = (EditText) findViewById(R.id.location);
-		nameEdit = (EditText) findViewById(R.id.name);
 		descriptionEdit = (EditText) findViewById(R.id.description);
 		
 	    LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
@@ -71,6 +80,11 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_donate, menu);
 		return true;
+	}
+	
+	public void loadNameOnView() {
+		nameEdit = (EditText) findViewById(R.id.name);
+		nameEdit.setText(settings.getString("name", ""));
 	}
 	
 	// display current date
@@ -128,6 +142,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	}
 
 	private void submit() {
+		rememberString("name", nameEdit.getText().toString());
 		updateAddress();
 		postToService();
 	}
@@ -151,10 +166,16 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		return dateString;
 	}
 	
+	private void rememberString(String key, String value) {
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(key, value);
+		editor.commit();
+	}
+	
 	private void postToService() {
 		/*
 		 * { "Name":"NameTestX",
-		 *   "Email":"some@mail.com",
+		 *   "Email":"some@outlook.com",
 		 *   "Phone":"5555555555",
 		 *   "Address":"some random place",
 		 *   "Latitude":16.0,
