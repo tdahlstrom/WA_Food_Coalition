@@ -20,6 +20,8 @@ namespace API.Services {
         private string _optionalDescriptionBody = WebConfigurationManager.AppSettings["SMTOOptionalDescription"];
         private string _emailSubject = WebConfigurationManager.AppSettings["SMTOSubjectLine"];
         private string _senderPassword = WebConfigurationManager.AppSettings["SMTPPassword"];
+        private bool _useDebugEmail = Convert.ToBoolean(WebConfigurationManager.AppSettings["UseDebugEmailAddress"]);
+        private string _debugEmailAddress = WebConfigurationManager.AppSettings["DebugEmailAddress"];
 
         public void SendNearbyDonationEmail(Donation donation, List<FoodBank> foodBanksToGetEmail) {
             if (foodBanksToGetEmail.Count == 0)
@@ -33,8 +35,13 @@ namespace API.Services {
             }
 
             MailMessage message = new MailMessage();
-            foreach (FoodBank foodBank in foodBanksToGetEmail) {
-                message.To.Add(foodBank.Email);
+            // Check debug email boolean, so that we don't send testing emails to real food banks
+            if (!_useDebugEmail) {
+                foreach (FoodBank foodBank in foodBanksToGetEmail) {
+                    message.To.Add(foodBank.Email);
+                }
+            } else {
+                message.To.Add(_debugEmailAddress);
             }
             message.From = new MailAddress(_senderEmail);
 

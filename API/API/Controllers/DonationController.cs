@@ -17,6 +17,7 @@ namespace API.Controllers
     {
         private FoodCoalitionAppContext db = new FoodCoalitionAppContext();
         private ILocationService locationService = new ConcreteLocationService();
+        private EmailService emailService = new EmailService();
 
         // GET api/Donation
         public IQueryable<Donation> GetDonations()
@@ -130,6 +131,9 @@ namespace API.Controllers
 
                 db.Donations.Add(donation);
                 db.SaveChanges();
+                
+                List<FoodBank> foodbanks = locationService.GetNearbyFoodBanks(donation.Latitude, donation.Longitude, 5).ConvertAll(fbd => (FoodBank)fbd);
+                emailService.SendNearbyDonationEmail(donation, foodbanks);
                 return CreatedAtRoute("DefaultApi", new { id = donation.ID }, donation);
             }
 

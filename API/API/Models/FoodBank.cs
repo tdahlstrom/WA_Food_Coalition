@@ -30,7 +30,6 @@ namespace API.Models {
 
     public class FoodBankDistanceResult : FoodBank
     {
-        [Required]
         [Display(Name = "Distance")]
         public Double Distance { get; set; }
     }
