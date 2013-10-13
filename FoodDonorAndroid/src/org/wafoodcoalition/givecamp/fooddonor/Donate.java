@@ -149,8 +149,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	}
 
 	private void submit() {
-		if (requiredFieldsEmpty()) {
-			showRequiredFieldsAlert();
+		if (checkRequiredFields() == false) {
 			return;
 		}
 		if(detectedLocation==null) {
@@ -162,13 +161,19 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		postToService();
 	}
 	
-	private boolean requiredFieldsEmpty() {
-		if (descriptionEdit.getText().toString().length() < 20 ||
-				(email.getText().toString().length() == 0 &&
-					phone.getText().toString().length() == 0)) {
-			return true;
+	private boolean checkRequiredFields() {
+		if (descriptionEdit.getText().toString().length() < 20) {
+			showRequiredDescriptionAlert();
+			return false;
 		}
-		return false;
+		
+		if (email.getText().toString().length() == 0 &&
+					phone.getText().toString().length() == 0) {
+			showRequiredContactAlert();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	private void updateAddress() {
@@ -196,12 +201,24 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	     .show();	
 	}
 	
-	private void showRequiredFieldsAlert() {
+	private void showRequiredDescriptionAlert() {
 		new AlertDialog.Builder(this)
-		.setTitle("Required Information Missing")
-	    .setMessage("Please provide a description and the types of food you're donating "
-	    		+ "(a minimum of 20 characters) and "
-	    		+ "either an email address or a phone number.")
+		.setTitle("Donation Description Missing")
+	    .setMessage("Please provide a description of the types of food, "
+	    		+ "and how much, you're donating (minimum of 20 characters). "
+	    		+ "Include any other instructions, if necessary.")
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();
+	}
+	
+	private void showRequiredContactAlert() {
+		new AlertDialog.Builder(this)
+		.setTitle("Required Contact Information Missing")
+	    .setMessage("Please provide either your email address or your phone number.")
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	            // continue
