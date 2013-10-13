@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Change Password" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeFile="ChangePassword.aspx.cs" Inherits="Account_ChangePassword" %>
+    CodeBehind="ChangePassword.aspx.cs" Inherits="Food_Bank_Web.Account.ChangePassword" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>

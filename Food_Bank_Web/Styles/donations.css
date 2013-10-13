@@ -145,3 +145,8 @@ input[type="submit"].btn-third {
     width: 20%;
     float: left;
 }
+.donationList .address
+{
+    color: #777777;
+    font-size: 90%;
+}

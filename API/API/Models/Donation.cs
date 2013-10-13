@@ -51,7 +51,7 @@ namespace API.Models
         public int FoodBankID { get; set; }
     }
 
-    public static enum StatusType {
+    public enum StatusType {
         Open,
         Pending,
         Closed
