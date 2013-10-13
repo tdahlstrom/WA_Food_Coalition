@@ -121,11 +121,24 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Donations.Add(donation);
-            db.SaveChanges();
+            /* Validate coordinates are within Washington */
+            if (donation.Latitude  > 44.5 &&
+                donation.Latitude  < 49.2 &&
+                donation.Longitude > -125.43 &&
+                donation.Longitude < 116.8)
+            {
 
-            return CreatedAtRoute("DefaultApi", new { id = donation.ID }, donation);
+                db.Donations.Add(donation);
+                db.SaveChanges();
+                return CreatedAtRoute("DefaultApi", new { id = donation.ID }, donation);
+            }
+
+            else
+            {
+                return BadRequest("Coordinates out of range.");
+            }   
         }
+
 
         // DELETE api/Donation/5
         [ResponseType(typeof(Donation))]
