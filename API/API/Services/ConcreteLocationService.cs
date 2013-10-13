@@ -32,7 +32,7 @@ namespace API.Services
                         FoodBankDistanceResult foodbank = new FoodBankDistanceResult();
                         foodbank.Name = reader.GetValue(0).ToString();
                         foodbank.Email = reader.GetValue(1).ToString();
-                        foodbank.Distance = (float)reader.GetValue(2);
+                        foodbank.Distance = (Double)reader.GetValue(2);
                         result.Add(foodbank);
                     }
                     return result;
@@ -67,7 +67,7 @@ namespace API.Services
                         donation.Description = reader.GetValue(4).ToString();
                         donation.Status = reader.GetValue(5).ToString();
                         donation.ExpirationDate = (DateTime)reader.GetValue(6);
-                        donation.Distance = (float)reader.GetValue(7);
+                        donation.Distance = (Double)reader.GetValue(7);
                         result.Add(donation);
                     }
                     return result;
