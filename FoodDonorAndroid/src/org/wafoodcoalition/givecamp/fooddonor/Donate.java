@@ -17,8 +17,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -45,6 +47,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	EditText locationEdit = null;
 	FoodLocation detectedLocation;
 	FoodLocation location;
+	Button foodBankMapButton;
 	Button submitButton;
 	ProgressBar progressBar;	
 	
@@ -62,7 +65,10 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		locationEdit = (EditText) findViewById(R.id.location);
 		nameEdit = (EditText) findViewById(R.id.name);
 		descriptionEdit = (EditText) findViewById(R.id.description);
-			    
+	    
+		foodBankMapButton = (Button) findViewById(R.id.foodBankMapButton);
+		foodBankMapButton.setOnClickListener(this);
+		
 	    submitButton = (Button) findViewById(R.id.submit);
 	    submitButton.setOnClickListener(this);
 	    
@@ -150,9 +156,18 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	public void onClick(View arg0) {
 		if(arg0==submitButton) {
 			submit();
-		}		
+		} else if (arg0==foodBankMapButton) {
+			showFoodBankMap();
+		}
 	}
 
+	private void showFoodBankMap() {
+		String url = "http://www.wafoodcoalition.org/membership#map";
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setData(Uri.parse(url));
+		startActivity(i);
+	}
+	
 	private void submit() {
 		if (checkRequiredFields() == false) {
 			return;
@@ -209,9 +224,9 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	private void showRequiredDescriptionAlert() {
 		new AlertDialog.Builder(this)
 		.setTitle("Donation Description Missing")
-	    .setMessage("Please provide a description of the types of food, "
-	    		+ "and how much, you're donating (minimum of 20 characters). "
-	    		+ "Include any other instructions, if necessary.")
+	    .setMessage("Please enter the types of food, "
+	    		+ "the amount of food, and any pickup instructions "
+	    		+ "you have for the food that you're donating. (minimum of 20 characters required). ")
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	            // continue

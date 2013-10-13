@@ -32,7 +32,14 @@ namespace API.Services
                         FoodBankDistanceResult foodbank = new FoodBankDistanceResult();
                         foodbank.Name = reader.GetValue(0).ToString();
                         foodbank.Email = reader.GetValue(1).ToString();
-                        foodbank.Distance = Double.Parse(reader.GetValue(2).ToString());
+
+                        // Need some extra logic for when distance == 0, since double.parse returns empty string
+                        String distance = reader.GetValue(2).ToString();
+                        if (distance.Equals(""))
+                            foodbank.Distance = 0.0;
+                        else
+                            foodbank.Distance = Double.Parse(distance);
+
                         result.Add(foodbank);
                     }
                     return result;
@@ -67,7 +74,14 @@ namespace API.Services
                         donation.Description = reader.GetValue(4).ToString();
                         donation.Status = reader.GetValue(5).ToString();
                         donation.ExpirationDate = (DateTime)reader.GetValue(6);
-                        donation.Distance = Double.Parse(reader.GetValue(7).ToString());
+
+                        // Need some extra logic for when distance == 0, since double.parse returns empty string
+                        String distance = reader.GetValue(7).ToString();
+                        if (distance.Equals(""))
+                            donation.Distance = 0.0;
+                        else
+                            donation.Distance = Double.Parse(distance);
+                        
                         result.Add(donation);
                     }
                     return result;

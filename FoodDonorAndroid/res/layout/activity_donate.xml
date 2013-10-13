@@ -14,18 +14,18 @@
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:hint="@string/description"
-  android:minLines="3"
+  android:minLines="4"
   android:maxLength="500"
   android:scrollbars="none"
   android:inputType="textMultiLine"
   />
 
-  <ProgressBar android:id="@+id/progress"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         style="@android:style/Widget.ProgressBar.Large"
-         android:layout_centerHorizontal="true"
-         android:layout_centerVertical="true"/>
+<ProgressBar android:id="@+id/progress"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  style="@android:style/Widget.ProgressBar.Large"
+  android:layout_centerHorizontal="true"
+  android:layout_centerVertical="true"/>
      
 <TextView
   android:id="@+id/availabilityLabel"
@@ -88,14 +88,25 @@
   android:layout_below="@id/phone"
   android:singleLine="true"
   />
+ 
+<Button android:id="@+id/foodBankMapButton"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="@string/food_bank_map" 
+  android:drawableTop="@drawable/ic_launcher"
+  android:layout_below="@id/location"
+  android:layout_alignParentLeft="true"
+  android:layout_marginLeft="5dp"
+/>
 
 <Button android:id="@+id/submit"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="@string/submit" 
+  android:text="@string/submit"
   android:drawableTop="@drawable/ic_launcher"
-  android:layout_below="@id/location"  
-  android:layout_centerHorizontal="true"   
+  android:layout_below="@id/location"
+  android:layout_alignParentRight="true"
+  android:layout_marginRight="5dp"
 />
 </RelativeLayout>
 </ScrollView>
