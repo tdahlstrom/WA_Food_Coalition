@@ -81,5 +81,14 @@
   android:layout_below="@id/phone"
   android:singleLine="true"
   />
+
+<Button android:id="@+id/submit"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="@string/submit" 
+  android:drawableTop="@drawable/ic_launcher"
+  android:layout_below="@id/location"  
+  android:layout_centerHorizontal="true"   
+/>
 </RelativeLayout>
 </ScrollView>
