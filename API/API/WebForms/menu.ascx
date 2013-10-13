@@ -10,6 +10,8 @@
                     <asp:LinkButton ID="lnkSettings" runat="server" Text="Settings" OnClick="MenuClick"></asp:LinkButton></li>
                 <li runat="server" id="liShortages" >
                     <asp:LinkButton ID="lnkShortages" runat="server" Text="Shortages" OnClick="MenuClick"></asp:LinkButton></li>
+                <li runat="server" id="liMap">
+                    <asp:LinkButton ID="lnkMap" runat="server" Text="Map" OnClick="MenuClick"></asp:LinkButton></li>
                 <li runat="server" id="liLogout" >
                     <asp:LinkButton ID="lnkLogOut" runat="server" Text="LogOut" OnClick="MenuClick"></asp:LinkButton>
                 </li>

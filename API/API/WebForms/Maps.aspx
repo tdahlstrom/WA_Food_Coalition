@@ -18,7 +18,7 @@
 
     <div id="map-canvas"></div>
 
-    <script src="Scripts/jquery-2.0.3.min.js"></script>
+    <script src="/Scripts/jquery-2.0.3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
         var map;

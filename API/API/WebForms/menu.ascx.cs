@@ -34,6 +34,9 @@ namespace Food_Bank_Web
                         case "shortages":
                             pageName = "shortages.aspx";
                             break;
+                        case "map":
+                            pageName = "maps.aspx";
+                            break;
                         case "settings":
                             pageName = "settings.aspx";
                             break;
