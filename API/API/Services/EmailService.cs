@@ -16,7 +16,7 @@ namespace API.Services {
 
         private string _senderEmail = WebConfigurationManager.AppSettings["SMTPSendingEmail"];
         private string _emailBody = WebConfigurationManager.AppSettings["SMTPSendingBody"];
-        private string _optionalContactBody = WebConfigurationManager.AppSettings["SMTPOptionalPhone"];
+        private string _optionalContactBody = WebConfigurationManager.AppSettings["SMTPOptionalContact"];
         private string _optionalDescriptionBody = WebConfigurationManager.AppSettings["SMTOOptionalDescription"];
         private string _emailSubject = WebConfigurationManager.AppSettings["SMTOSubjectLine"];
         private string _senderPassword = WebConfigurationManager.AppSettings["SMTPPassword"];
@@ -70,7 +70,8 @@ namespace API.Services {
             client.Credentials = credential;
             client.EnableSsl = true;
             client.Port = 587;
-            client.SendAsync(message, donation.ID);
+            client.Host = "smtp.gmail.com";
+            client.Send(message);
         }
     }
 }

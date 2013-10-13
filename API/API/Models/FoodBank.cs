@@ -16,6 +16,10 @@ namespace API.Models {
         [Required]
         public string Email { get; set; }
 
+        [Display(Name = "Address")]
+        [Required]
+        public string Address { get; set; }
+        
         [Required]
         public long rangeInMeters { get; set; }
 
