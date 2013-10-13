@@ -83,6 +83,32 @@ namespace API.Controllers
             return Ok();
         }
 
+        [ActionName("Status")]
+        // PUT api/Donation/Status/7?status=open&foodbankid=1
+        public IHttpActionResult PutStatus(int id, [FromUri]string status, [FromUri]int foodbankid)
+        {
+            Donation donation = db.Donations.Find(id);
+            if (donation == null)
+            {
+                return NotFound();
+            }
+            donation.Status = status;
+            donation.FoodBankID = foodbankid;
+
+            db.Entry(donation).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
         // POST api/Donation
         [ResponseType(typeof(Donation))]
         public IHttpActionResult PostDonation(Donation donation)

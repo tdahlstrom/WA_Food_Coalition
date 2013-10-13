@@ -9,6 +9,8 @@
     <link href="<%= Page.ResolveClientUrl("~/Styles/bootstrap.css") %>" rel="stylesheet" />
     <link href="<%= Page.ResolveClientUrl("~/Styles/bootstrap-responsive.css") %>" rel="stylesheet" />
     <link href="<%= Page.ResolveClientUrl("~/Styles/main.css") %>" rel="stylesheet" />
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.js") %>"></script>
+
     <asp:ContentPlaceHolder ID="pageHead" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -29,7 +31,6 @@
     <div class="footer">
         <asp:Label ID="lblPageFooter" runat="server"></asp:Label>
     </div>
-    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/bootstrap.js") %>"></script>
    </form>
 </body>
