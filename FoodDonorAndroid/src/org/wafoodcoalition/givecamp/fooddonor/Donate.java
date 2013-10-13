@@ -45,7 +45,6 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	FoodLocation detectedLocation;
 	FoodLocation location;
 	Button submitButton;
-		
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +149,10 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	}
 
 	private void submit() {
+		if (requiredFieldsEmpty()) {
+			showRequiredFieldsAlert();
+			return;
+		}
 		if(detectedLocation==null) {
 			showLocationMissingAlert();
 			return;
@@ -157,6 +160,15 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		rememberString("name", nameEdit.getText().toString());
 		updateAddress();
 		postToService();
+	}
+	
+	private boolean requiredFieldsEmpty() {
+		if (descriptionEdit.getText().toString().length() < 20 ||
+				(email.getText().toString().length() == 0 &&
+					phone.getText().toString().length() == 0)) {
+			return true;
+		}
+		return false;
 	}
 	
 	private void updateAddress() {
@@ -171,6 +183,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			showLocationFailure(e);
 		}
 	}
+	
 	private void showLocationFailure(Exception e) {
 		new AlertDialog.Builder(this)
 	    .setTitle("Address not found on Map.")
@@ -182,6 +195,21 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	     })
 	     .show();	
 	}
+	
+	private void showRequiredFieldsAlert() {
+		new AlertDialog.Builder(this)
+		.setTitle("Required Information Missing")
+	    .setMessage("Please provide a description and the types of food you're donating "
+	    		+ "(a minimum of 20 characters) and "
+	    		+ "either an email address or a phone number.")
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue
+	        }
+	     })
+	     .show();
+	}
+	
 	private void showNetworkAlert() {
 		new AlertDialog.Builder(this)
 	    .setTitle("Network Connection Failure")
@@ -193,6 +221,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	     })
 	     .show();	
 	}
+	
 	private void showLocationMissingAlert() {
 		new AlertDialog.Builder(this)
 	    .setTitle("Location not available")
