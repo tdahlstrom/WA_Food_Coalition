@@ -27,8 +27,8 @@ import android.widget.EditText;
 public class Donate extends Activity implements LocationUpdated, OnClickListener {
 	
 	private EditText phone;
-	private DatePicker dpResult;
 	private EditText email;
+	private DatePicker dpResult;
 	private EditText nameEdit;
 	private EditText descriptionEdit;
 	
@@ -40,6 +40,7 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_donate);
+		
 		setDefaultPhoneOnView();
 		setCurrentDateOnView();
 		setDefaultEmailOnView();
@@ -55,10 +56,12 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 	    submitButton = (Button) findViewById(R.id.submit);
 	    submitButton.setOnClickListener(this);
 	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -84,11 +87,11 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 		
 		phone = (EditText) findViewById(R.id.phone);
 		
-		TelephonyManager tMgr =(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		TelephonyManager tMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneNumber = tMgr.getLine1Number();
 		
 		if (phoneNumber != null) {
-			phone.setText(phoneNumber);
+			phone.setText(phoneNumber.substring(1));
 		}
 	}
 	
@@ -153,4 +156,5 @@ public class Donate extends Activity implements LocationUpdated, OnClickListener
 			throw new RuntimeException(e);
 		}
 	}
+
 }

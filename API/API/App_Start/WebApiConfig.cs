@@ -10,6 +10,13 @@ namespace API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            
+            // Map this rule first
+            config.Routes.MapHttpRoute(
+                name: "WithActionApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             // Web API routes
             config.Routes.MapHttpRoute(

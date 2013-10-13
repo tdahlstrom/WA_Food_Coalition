@@ -19,6 +19,12 @@ namespace API.Models {
         [Required]
         public long rangeInMeters { get; set; }
 
+        [Display(Name = "Latitude")]
+        public Double Latitude { get; set; }
+
+        [Display(Name = "Longitude")]
+        public Double Longitude { get; set; }
+
         // More fields to be defined later
     }
 }

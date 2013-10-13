@@ -49,6 +49,11 @@ namespace API.Controllers
             return Ok(donation);
         }
 
+        // Get donations associated to the ** FoodBank ID **
+        public IQueryable<Donation> Get(int foodBankId) {
+            return db.Donations.Where(d => d.FoodBankID == foodBankId).AsQueryable();
+        }
+
         // PUT api/Donation/5
         public IHttpActionResult PutDonation(int id, Donation donation)
         {
@@ -78,6 +83,32 @@ namespace API.Controllers
                 {
                     throw;
                 }
+            }
+
+            return Ok();
+        }
+
+        [ActionName("Status")]
+        // PUT api/Donation/Status/7?status=open&foodbankid=1
+        public IHttpActionResult PutStatus(int id, [FromUri]string status, [FromUri]int foodbankid)
+        {
+            Donation donation = db.Donations.Find(id);
+            if (donation == null)
+            {
+                return NotFound();
+            }
+            donation.Status = status;
+            donation.FoodBankID = foodbankid;
+
+            db.Entry(donation).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return NotFound();
             }
 
             return Ok();

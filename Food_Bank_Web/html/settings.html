@@ -97,6 +97,8 @@
   </head>
 
   <body>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/settings.js" type="text/javascript"></script>
 
     <div class="container">
 
@@ -117,16 +119,17 @@
 
       <form class="text-center">
         <label>Email:
-          <input type="text" value="placeholder">
+          <input id="changeEmail" type="email" value="placeholder" current="blah">
         </label>
         <span class="help-block">Notify me when a donation is available within:</span>
         <label class="checkbox">
-          <input class="input-mini text-center" value="0"> miles
+          <input id="changeRadius" class="input-mini text-center" type="number" value="0" current="5"> miles
         </label>
         <div class="btn-group">
-          <button type="submit" class="btn">Save</button>
-          <button class="btn">Cancel</button>
+          <button type="submit" class="btn" id="saveSettings">Save</button>
+          <button class="btn" id="cancelSettingChanges">Cancel</button>
         </div>
+        <div id="settingsError">Error saving changes</div>
       </form>
 
       <div class="footer">
@@ -138,6 +141,8 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/settings.js"></script>
+
 
   </body>
 </html>

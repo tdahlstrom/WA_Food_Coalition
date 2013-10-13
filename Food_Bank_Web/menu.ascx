@@ -2,16 +2,16 @@
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container">
-            <ul class="nav">
-                <li class="active">
-                    <asp:LinkButton ID="lnkDonations" runat="server" Text="Donations"></asp:LinkButton>
+            <ul class="nav" runat="server" id="ulMenu">
+                <li runat="server" id="liDonations" class="active">
+                    <asp:LinkButton ID="lnkDonations" runat="server" Text="Donations" OnClick="MenuClick"></asp:LinkButton>
                 </li>
-                <li>
-                    <asp:LinkButton ID="lnkSettings" runat="server" Text="Settings"></asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="lnkShortages" runat="server" Text="Shortages"></asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="lnkLogOut" runat="server" Text="LogOut"></asp:LinkButton>
+                <li runat="server" id="liSettings" >
+                    <asp:LinkButton ID="lnkSettings" runat="server" Text="Settings" OnClick="MenuClick"></asp:LinkButton></li>
+                <li runat="server" id="liShortages" >
+                    <asp:LinkButton ID="lnkShortages" runat="server" Text="Shortages" OnClick="MenuClick"></asp:LinkButton></li>
+                <li runat="server" id="liLogout" >
+                    <asp:LinkButton ID="lnkLogOut" runat="server" Text="LogOut" OnClick="MenuClick"></asp:LinkButton>
                 </li>
             </ul>
         </div>
