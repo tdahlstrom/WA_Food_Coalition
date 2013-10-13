@@ -11,7 +11,7 @@ namespace API.Services {
             throw new NotImplementedException();
         }
 
-        public List<Donation> GetNearbyDonations(FoodBank foodBank) {
+        public List<Donation> GetNearbyDonations(double latitude, double longitude) {
             throw new NotImplementedException();
         }
     }
