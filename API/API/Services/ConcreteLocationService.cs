@@ -11,14 +11,14 @@ namespace API.Services
     public class ConcreteLocationService : ILocationService
     {
 
-        public List<FoodBank> GetNearbyFoodBanks(double latitude, double longitude, int amountToReturn)
+        public List<FoodBankDistanceResult> GetNearbyFoodBanks(double latitude, double longitude, int amountToReturn)
         {
             String _connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["DonationContext"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand("dbo.usp_GetNearDonations", connection))
                 {
-                    List<FoodBank> result = new List<FoodBank>();
+                    List<FoodBankDistanceResult> result = new List<FoodBankDistanceResult>();
                     command.CommandType = CommandType.StoredProcedure;
                     #region Add Parameters
                     command.Parameters.Add(new SqlParameter("@latitude", latitude));
@@ -29,9 +29,10 @@ namespace API.Services
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        FoodBank foodbank = new FoodBank();
+                        FoodBankDistanceResult foodbank = new FoodBankDistanceResult();
                         foodbank.Name = reader.GetValue(0).ToString();
                         foodbank.Email = reader.GetValue(1).ToString();
+                        foodbank.Distance = (float)reader.GetValue(2);
                         result.Add(foodbank);
                     }
                     return result;
@@ -40,14 +41,14 @@ namespace API.Services
         }
 
 
-        public List<Donation> GetNearbyDonations(double latitude, double longitude)
+        public List<DonationDistanceResult> GetNearbyDonations(double latitude, double longitude)
         {
             String _connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["DonationContext"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand("dbo.usp_GetNearDonations", connection))
                 {
-                    List<Donation> result = new List<Donation>();
+                    List<DonationDistanceResult> result = new List<DonationDistanceResult>();
                     command.CommandType = CommandType.StoredProcedure;
                     #region Add Parameters
                     command.Parameters.Add(new SqlParameter("@latitude", latitude));
@@ -58,7 +59,7 @@ namespace API.Services
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        Donation donation = new Donation();
+                        DonationDistanceResult donation = new DonationDistanceResult();
                         donation.Name = reader.GetValue(0).ToString();
                         donation.Email = reader.GetValue(1).ToString();
                         donation.Phone = reader.GetValue(2).ToString();
@@ -66,6 +67,7 @@ namespace API.Services
                         donation.Description = reader.GetValue(4).ToString();
                         donation.Status = reader.GetValue(5).ToString();
                         donation.ExpirationDate = (DateTime)reader.GetValue(6);
+                        donation.Distance = (float)reader.GetValue(7);
                         result.Add(donation);
                     }
                     return result;

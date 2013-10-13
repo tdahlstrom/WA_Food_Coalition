@@ -51,6 +51,13 @@ namespace API.Models
         public int FoodBankID { get; set; }
     }
 
+    public class DonationDistanceResult : Donation
+    {
+        [Required]
+        [Display(Name = "Distance")]
+        public float Distance { get; set; }
+    }
+
     public enum StatusType {
         Open,
         Pending,
