@@ -13,7 +13,7 @@ namespace API.Services
 
         public List<FoodBank> GetNearbyFoodBanks(double latitude, double longitude, int amountToReturn)
         {
-            String _connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+            String _connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["DonationContext"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand("dbo.usp_GetNearDonations", connection))
@@ -42,7 +42,7 @@ namespace API.Services
 
         public List<Donation> GetNearbyDonations(double latitude, double longitude)
         {
-            String _connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+            String _connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["DonationContext"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand("dbo.usp_GetNearDonations", connection))
