@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\FoodBankController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -90,7 +91,10 @@
     <Compile Include="Models\DonationContext.cs" />
     <Compile Include="Models\FoodBank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-	<Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ConcreteLocationService.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ILocationService.cs" />
+    <Compile Include="Services\TestLocationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
