@@ -13,7 +13,7 @@ using System.Web.Http.Description;
 namespace API.Controllers {
     public class FoodBankController : ApiController {
         private FoodCoalitionAppContext _db = new FoodCoalitionAppContext();
-        private ILocationService _locationService = new TestLocationService();
+        private ILocationService _locationService = new ConcreteLocationService();
         private int _defaultNearbyFoodBanks = Convert.ToInt32(WebConfigurationManager.AppSettings["DefaultAmountOfNearbyFoodBanksToReturn"]);
 
         public IQueryable<FoodBank> Get(double latitude, double longitude, int? amountToReturn) {
