@@ -12,16 +12,29 @@
         }
         function getDonationDetail() {
             var id = getParameterByName("donationId");
+            var statusText = "";
             hideAllActions();
             if (id != null) {
                 $.getJSON("/api/donation?ID=" + id,
                     function(data) {
                         $('#FoodDescription').text(data.Description);
-                        $('#Address').text(data.Address);
-                        $('#Name').text(data.Name);
+                        $('#Address').text(data.Address);$('#Name').text(data.Name);
                         $('#Phone').text(data.Phone);
                         $('#Email').text(data.Email);
-                        $('#donationStatus').text(data.Status);
+                        switch(data.Status.toString().toLowerCase()) {
+                            case "inprocess":
+                                statusText = "Being picked up.";
+                                break;
+                            case "close":
+                                statusText = "No longer need to be picked up.";
+                                break;
+                            case "open":
+                                statusText = "Ready for pick up";
+                                break;
+                            default:
+                                break;
+                        }
+                        $('#donationStatus').text(statusText);
                         toggleAction(data.Status);
                     });
             }
@@ -29,14 +42,13 @@
 
         function updateDonationStatus(status) {
             var id = getParameterByName("donationId");
-            var foodbankId = 1;
-            var APIurl = "/api/Donation/Status/" + id + "?status=" + status + "&foodbankid=" + foodbankId;
+            var APIurl = "/api/Donation/Status/" + id + "?status=" + status + "&foodbankid=" + glb_FoodbankID;
             
             $.ajax({
                 type: "PUT",
                 url: APIurl,
                 async: false,
-                success: function () {                }
+                success: function () { getDonationDetail(); }
             });
             return false;
         }

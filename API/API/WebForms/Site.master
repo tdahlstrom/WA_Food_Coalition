@@ -9,7 +9,15 @@
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/bootstrap-responsive.css") %>" rel="stylesheet" />
     <link href="<%= Page.ResolveClientUrl("~/WebForms/Styles/main.css") %>" rel="stylesheet" />
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-2.0.3.min.js") %>"></script>
-
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/WebForms/Scripts/jquery.cookie.js") %>"></script>
+    <script type="text/javascript">
+        //global variables
+        glb_FoodbankID = $.cookie("FOODBANKID");
+        var url = window.location.toString();
+        if ((typeof (glb_FoodbankID) == "undefined" || glb_FoodbankID.length == 0) && url.indexOf("login.aspx")<0) {
+            window.location = "login.aspx";
+        }
+    </script>
     <asp:ContentPlaceHolder ID="pageHead" runat="server">
     </asp:ContentPlaceHolder>
 </head>

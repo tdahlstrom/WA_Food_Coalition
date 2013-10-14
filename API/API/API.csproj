@@ -86,15 +86,15 @@
     </Content>
     <Content Include="WebForms\DonationDetail.aspx" />
     <Content Include="WebForms\Donations.aspx" />
-    <None Include="WebForms\Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="WebForms\img\glyphicons-halflings-white.png" />
     <Content Include="WebForms\img\glyphicons-halflings.png" />
     <Content Include="WebForms\img\space.png" />
     <Content Include="WebForms\img\truck.png" />
     <Content Include="WebForms\Login.aspx" />
     <Content Include="WebForms\menu.ascx" />
-    <Content Include="WebForms\Scripts\jquery-1.4.1.js" />
-    <Content Include="WebForms\Scripts\jquery-1.4.1.min.js" />
+    <Content Include="WebForms\Scripts\bootstrap.js" />
+    <Content Include="WebForms\Scripts\bootstrap.min.js" />
+    <Content Include="WebForms\Scripts\jquery.cookie.js" />
     <Content Include="WebForms\Settings.aspx" />
     <Content Include="WebForms\Shortages.aspx" />
     <Content Include="WebForms\Styles\bootstrap-responsive.css" />

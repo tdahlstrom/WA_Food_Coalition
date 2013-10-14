@@ -58,24 +58,6 @@ namespace Food_Bank_Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkSettings;
         
         /// <summary>
-        /// liShortages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liShortages;
-        
-        /// <summary>
-        /// lnkShortages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkShortages;
-        
-        /// <summary>
         /// liMap control.
         /// </summary>
         /// <remarks>

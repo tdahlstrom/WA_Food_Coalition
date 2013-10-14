@@ -80,7 +80,7 @@
 	width: 100%;
 }
 
-input[type="submit"].btn-third {
+input[type="button"].btn-third {
 	width: 33%;
 }
 
@@ -127,4 +127,15 @@ input[type="submit"].btn-third {
 {
     vertical-align: top;
     width: 30%;
+}
+
+.donationList .closed
+{
+    color: #999999;
+}
+
+.donationList .closed .description
+{
+    color: #999999;
+    font-size: 100%;
 }

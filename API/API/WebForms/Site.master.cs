@@ -34,13 +34,14 @@ namespace Food_Bank_Web
                 case "donations.aspx":
                     lblPageTitle.Text = "Donations";
                     break;
-                case "donationDetail.aspx":
+                case "donationdetail.aspx":
                     lblPageTitle.Text = "Donation Detail";
                     break;
-                case "shortages.aspx":
-                    lblPageTitle.Text = "Shorages";
+                case "maps.aspx":
+                    lblPageTitle.Text = "Map";
                     break;
                 default:
+                    lblPageTitle.Text = pageName.Replace(".aspx", "");
                     break;
             }
         }

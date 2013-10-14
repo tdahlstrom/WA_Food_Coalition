@@ -41,7 +41,6 @@ namespace Food_Bank_Web
                             pageName = "settings.aspx";
                             break;
                         case "logout":
-                            Logout();
                             pageName = "login.aspx";
                             break;
                         default:
@@ -63,7 +62,6 @@ namespace Food_Bank_Web
 
             liSettings.Attributes["class"] = "";
             liDonations.Attributes["class"] = "";
-            liShortages.Attributes["class"] = "";
             liLogout.Attributes["class"] = "";
 
             switch (pageName.ToLower())
@@ -75,16 +73,12 @@ namespace Food_Bank_Web
                 case "donationdetail.aspx":
                     liDonations.Attributes["class"] = "active";
                     break;
-                case "shortages.aspx":
-                    liShortages.Attributes["class"] = "active";
+                case "maps.aspx":
+                    liMap.Attributes["class"] = "active";
                     break;
                 default:
                     break;
             }
         }
-
-        private void Logout()
-        {
-        }
-    }
+   }
 }

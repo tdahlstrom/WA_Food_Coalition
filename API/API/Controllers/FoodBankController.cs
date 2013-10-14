@@ -28,6 +28,14 @@ namespace API.Controllers {
             return _db.FoodBanks.OrderBy(fb => fb.Name);
         }
 
+        public FoodBank Get(int id) {
+            FoodBank foodBank = _db.FoodBanks.Where(fb => fb.ID == id).FirstOrDefault();
+            if (foodBank == null) {
+                throw new HttpException();
+            }
+            return foodBank;
+        }
+
         // Insert
         [ResponseType(typeof (FoodBank))]
         public IHttpActionResult Post(FoodBank foodBank, string token) {

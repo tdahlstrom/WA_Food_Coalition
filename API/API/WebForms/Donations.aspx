@@ -5,22 +5,21 @@
 
     <script type="text/javascript">
         function getDonations(status) {
-            alert(status.toLowerCase());
             var APIUrl = "/api/donation";
-            var foodbankId = 1;
             $('#btnAll').removeClass("btn-primary").removeClass("disabled");
             $('#btnInProcess').removeClass("btn-primary").removeClass("disabled");
             $('#btnClose').removeClass("btn-primary").removeClass("disabled");
-            switch(status.toLowerCase()) {
+            switch(status.toString().toLowerCase()) {
                 case "inprocess":
-                    APIUrl = APIUrl + "?foodbankid=" + foodbankId + "&status=" + status;
+                    APIUrl = APIUrl + "?foodbankid=" + glb_FoodbankID + "&status=" + status;
                     $('#btnInProcess').addClass("btn-primary").addClass("disabled");
                     break;
                 case "close":
-                    APIUrl = APIUrl + "?foodbankid=" + foodbankId + "&status=" + status;
+                    APIUrl = APIUrl + "?foodbankid=" + glb_FoodbankID + "&status=" + status;
                     $('#btnClose').addClass("btn-primary").addClass("disabled");
                     break;
                 default:
+                    APIUrl = APIUrl + "?foodbankid=" + glb_FoodbankID;
                     $('#btnAll').addClass("btn-primary").addClass("disabled");
                     break;
             }
@@ -30,15 +29,27 @@
                 // Loop through the list of products.
                 $.each(data, function (key, val) {
                     // Add a table row for the product.
-                    var row = '<td class="food"><div class="description" onclick="viewDonation(' + val.ID+ ')">' + val.Description + '</div>' + val.Address + '</td>';
-                    row = row + '<td class="distance"><div onclick="viewDonation(' + val.ID + ')">';
-                    row = row + '<img src="';
-                    if (val.Status.toLowerCase() == "new") {
-                        row = row + '<%= Page.ResolveClientUrl("~/WebForms/img/truck.png") %>';
-                    } else {
-                        row = row + '<%= Page.ResolveClientUrl("~/WebForms/img/space.png") %>';
+                    var rowStyle = "";
+                    var statusImg = "";
+                    switch(val.Status.toLowerCase()) {
+                        case "inprocess":
+                            rowStyle = "";
+                            statusImg = '<%= Page.ResolveClientUrl("~/WebForms/img/truck.png") %>';
+                            break;
+                        case "close":
+                            rowStyle = "closed";
+                            statusImg = '<%= Page.ResolveClientUrl("~/WebForms/img/space.png") %>';
+                            break;
+                        default:
+                            rowStyle = "";
+                            statusImg = '<%= Page.ResolveClientUrl("~/WebForms/img/space.png") %>';
+                            break;
                     }
-                    row = row + '"></div></td>';
+
+
+                    var row = '<td class="food ' + rowStyle + '"><div class="description" onclick="viewDonation(' + val.ID+ ')">' + val.Description + '</div>' + val.Address + '</td>';
+                    row = row + '<td class="distance ' + rowStyle + '"><div onclick="viewDonation(' + val.ID + ')">';
+                    row = row + '<img src="' + statusImg + '"></div></td>';
                     
                     $('<tr/>', { html: row})  // Append the donations.
                         .appendTo($('#donations'));
@@ -48,7 +59,7 @@
         }
 
         function viewDonation(id) {
-            window.open("DonationDetail.aspx?donationId=" + id);
+            window.location = "DonationDetail.aspx?donationId=" + id;
         }
 
         $(document).ready(getDonations);
@@ -56,9 +67,9 @@
 </asp:Content>
 <asp:Content ID="donationContent" ContentPlaceHolderID="pageContent" runat="Server">
     <div class="btn-group">
-        <input type="button" id="btnAll" CssClass="btn btn-third btn-primary disabled" value="All Donations" onclick="getDonations('All')"/>
-        <input type="button" id="btnInProcess" CssClass="btn btn-third " value="I'm Picking Up" onclick="getDonations('InProcess')"/>
-        <input type="button" id="btnClose" CssClass="btn btn-third " value="Picked Up" onclick="getDonations('Close')"/>
+        <input type="button" id="btnAll" Class="btn btn-third btn-primary disabled" value="All Donations" onclick="getDonations('All')"/>
+        <input type="button" id="btnInProcess" Class="btn btn-third " value="I'm Picking Up" onclick="getDonations('InProcess')"/>
+        <input type="button" id="btnClose" Class="btn btn-third " value="Picked Up" onclick="getDonations('Close')"/>
     </div>
     <table id="donations" class="donationList"></table>
     
