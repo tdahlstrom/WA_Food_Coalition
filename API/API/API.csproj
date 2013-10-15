@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="WebForms\foodbanks.html" />
     <Content Include="WebForms\Maps.aspx" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
@@ -92,9 +93,12 @@
     <Content Include="WebForms\img\truck.png" />
     <Content Include="WebForms\Login.aspx" />
     <Content Include="WebForms\menu.ascx" />
+    <Content Include="WebForms\newfoodbank.html" />
     <Content Include="WebForms\Scripts\bootstrap.js" />
     <Content Include="WebForms\Scripts\bootstrap.min.js" />
+    <Content Include="WebForms\Scripts\foodbanks.js" />
     <Content Include="WebForms\Scripts\jquery.cookie.js" />
+    <Content Include="WebForms\Scripts\newfoodbank.js" />
     <Content Include="WebForms\Settings.aspx" />
     <Content Include="WebForms\Shortages.aspx" />
     <Content Include="WebForms\Styles\bootstrap-responsive.css" />

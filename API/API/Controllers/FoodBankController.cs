@@ -38,13 +38,13 @@ namespace API.Controllers {
 
         // Insert
         [ResponseType(typeof (FoodBank))]
-        public IHttpActionResult Post(FoodBank foodBank, string token) {
-            if (WebConfigurationManager.AppSettings["AdminToken"] != token) {
-                return BadRequest("Unauthorized.");
-            }
-            if (!ModelState.IsValid) {
-                return BadRequest(ModelState);
-            }
+        public IHttpActionResult Post(FoodBank foodBank) {
+            //if (WebConfigurationManager.AppSettings["AdminToken"] != token) {
+            //    return BadRequest("Unauthorized.");
+            //}
+            //if (!ModelState.IsValid) {
+            //    return BadRequest(ModelState);
+            //}
 
             _db.FoodBanks.Add(foodBank);
             _db.SaveChanges();
